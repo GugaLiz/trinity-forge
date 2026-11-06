@@ -1,0 +1,552 @@
+.reaction-modal {
+  text-align: center;
+  border-color: #b6a17188;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.reaction-modal .modal-header {
+  text-align: left;
+  flex-shrink: 0;
+}
+.reaction-process,
+.reaction-outcome {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #667454 transparent;
+}
+.reaction-continue {
+  flex-shrink: 0;
+  margin-top: 14px;
+}
+.reaction-scroll-hint {
+  flex-shrink: 0;
+  font-size: 9px;
+  color: #a2b08e;
+  text-align: center;
+  margin-top: 9px;
+  letter-spacing: 1px;
+}
+.reaction-kicker {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #bea97b;
+}
+.reaction-furnace {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 5px -10px 0;
+}
+.reaction-modal .reaction-furnace .furnace {
+  width: 260px;
+  height: 260px;
+}
+.reaction-modal .reaction-furnace .forge-art {
+  width: 220px;
+  height: 220px;
+}
+.reaction-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+}
+.reaction-token {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  position: relative;
+  color: #cfbf97;
+  animation: material-feed 0.65s ease-out both;
+}
+.reaction-token:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.reaction-token:nth-child(3) {
+  animation-delay: 0.24s;
+}
+.reaction-token b {
+  font-size: 13px;
+  font-weight: 400;
+}
+.reaction-token i {
+  position: absolute;
+  right: -13px;
+  font-style: normal;
+  font-size: 11px;
+  color: #7f8e78;
+}
+.reaction-token.tone-W {
+  color: var(--water);
+}
+.reaction-token.tone-F {
+  color: var(--fire);
+}
+.reaction-token.tone-E {
+  color: var(--earth);
+}
+.process-caption {
+  font-size: 12px;
+  color: #b6b79d;
+  margin: 20px 0 17px;
+  line-height: 1.7;
+}
+.reaction-progress {
+  height: 3px;
+  background: #5e694433;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.reaction-progress i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #ab7e50, #efd6a3);
+  transform-origin: left;
+  animation: forge-progress var(--forge-duration) linear both;
+}
+.process-steps {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #9b9e7c;
+  margin-top: 9px;
+  letter-spacing: 2px;
+  padding-bottom: 5px;
+}
+.reaction-working {
+  background: radial-gradient(ellipse at 50% 44%, #88603233, transparent 65%), #15201d;
+}
+.is-working:before {
+  opacity: 1;
+  inset: 14px;
+  background: radial-gradient(ellipse, #f1a04d4a, transparent 68%);
+  animation: forge-heat 0.3s ease-in-out infinite alternate;
+  filter: blur(5px);
+}
+.is-working .forge-art {
+  animation: furnace-shake 0.16s ease-in-out infinite;
+  transform-origin: 50% 74%;
+  filter: drop-shadow(0 0 13px #e4a25566);
+}
+.is-working.has-fire .forge-art {
+  animation-duration: 0.11s;
+  filter: drop-shadow(0 0 20px #f295427d);
+}
+.is-working .orbit-one {
+  border-color: #d4ac5966;
+  box-shadow: 0 0 18px #d5a65b15;
+  animation: orbit-charge 1.3s ease-in-out infinite;
+}
+.is-working .orbit-two {
+  border-color: #e1b46e44;
+  animation: orbit-charge 0.65s ease-in-out infinite reverse;
+}
+.is-working .orbit-mark {
+  box-shadow: 0 0 16px #e3b96b22;
+}
+.forge-flames path {
+  transform-origin: 50% 100%;
+  transform-box: fill-box;
+  animation: flame-lick 0.19s ease-in-out infinite alternate;
+  opacity: 0.8;
+}
+.forge-flames path:nth-child(2) {
+  animation-delay: -0.1s;
+}
+.forge-flames path:nth-child(3) {
+  animation-delay: -0.06s;
+}
+.forge-flames path:nth-child(4) {
+  animation-delay: -0.14s;
+}
+.has-fire .forge-flames path {
+  animation-name: flame-roar;
+  opacity: 1;
+}
+.forge-plumes {
+  fill: none;
+  filter: blur(2px);
+}
+.forge-plumes path {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: steam-rise 0.9s ease-out infinite;
+  stroke-width: 3;
+}
+.forge-plumes path:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.forge-plumes path:nth-child(3) {
+  animation-delay: -0.6s;
+}
+.has-water .forge-plumes {
+  filter: blur(4px);
+}
+.has-water .forge-plumes path {
+  stroke-width: 10;
+  animation-duration: 1.1s;
+}
+.is-working .idle-steam {
+  opacity: 0;
+}
+.forge-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.forge-particles i {
+  position: absolute;
+  left: calc(32% + var(--i) * 2.1%);
+  top: 67%;
+  width: 3px;
+  height: 5px;
+  background: #f6c27a;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #e5a76499;
+  animation: ember-rise 0.85s ease-out var(--delay) infinite;
+  --rise: -125px;
+}
+.forge-particles .vapor-particle {
+  width: 21px;
+  height: 21px;
+  top: 29%;
+  background: #a6d1ce55;
+  filter: blur(6px);
+  box-shadow: none;
+  --rise: -65px;
+  animation-duration: 1.1s;
+}
+.forge-particles .earth-particle {
+  width: 5px;
+  height: 5px;
+  background: #d8bd80;
+  border-radius: 1px;
+  --rise: -90px;
+  animation-duration: 1.2s;
+}
+.reaction-outcome {
+  animation: result-arrive 0.35s ease-out both;
+}
+.reaction-result-icon {
+  width: 130px;
+  height: 130px;
+  display: grid;
+  place-items: center;
+  color: #dcca9a;
+  margin: 20px auto 16px;
+  position: relative;
+  background: radial-gradient(#c8b18522, transparent 70%);
+}
+.reaction-result-icon > span {
+  position: absolute;
+  inset: 6px;
+  border: 1px solid #b7a36f66;
+  border-radius: 50%;
+  animation: reveal-ring 0.65s ease-out both;
+}
+.reaction-result-icon > span:last-child {
+  inset: -3px;
+  border-style: dashed;
+  opacity: 0.4;
+  animation-delay: 0.08s;
+}
+.reaction-outcome > h3 {
+  font:
+    32px 'Songti SC',
+    'SimSun',
+    serif;
+  letter-spacing: 6px;
+  color: #e2d0a7;
+  margin-bottom: 15px;
+}
+.reaction-equation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: #aab69a;
+  flex-wrap: wrap;
+  line-height: 1.6;
+}
+.reaction-equation strong {
+  font-weight: 500;
+  color: #d6c091;
+}
+.reaction-description {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #8da184;
+  margin: 12px 0;
+}
+.reaction-reward {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #d9c08a;
+  min-height: 33px;
+  background: #c6ae7010;
+  border: 1px solid #c0a67533;
+  border-radius: 3px;
+  font-size: 11px;
+  margin: 14px 0;
+}
+.reaction-reward b {
+  font-weight: 500;
+  padding-left: 8px;
+  border-left: 1px solid #c0a67544;
+}
+.reaction-deltas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 13px 0 10px;
+  margin-top: 16px;
+  border-block: 1px solid #a19e7529;
+}
+.reaction-deltas > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.reaction-deltas > div + div {
+  border-left: 1px solid #a19e7529;
+}
+.reaction-deltas span {
+  font-size: 10px;
+  color: #99a88d;
+}
+.reaction-deltas b {
+  font:
+    18px Georgia,
+    serif;
+  color: #c7c7a5;
+}
+.reaction-deltas b small {
+  font-size: 10px;
+  color: #758b70;
+}
+.reaction-deltas > div > small {
+  font-size: 10px;
+  color: #758b70;
+}
+.reaction-deltas .delta-up {
+  color: #a6c393;
+}
+.reaction-deltas .delta-down {
+  color: #d0a17c;
+}
+.reaction-resource-note {
+  font-size: 9px;
+  color: #778d70;
+  margin: 8px 0 14px;
+}
+.reaction-destination {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #a2b88f;
+  margin: 14px 0 19px;
+}
+.reaction-backlash {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #c5825144;
+  background: #b97d4314;
+  border-radius: 3px;
+  padding: 10px;
+  color: #e0a47c;
+  text-align: left;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.reaction-destination.is-lost {
+  color: #c69b7d;
+}
+.reaction-failure.reaction-revealed {
+  border-color: #a7866e99;
+}
+.reaction-failure .reaction-result-icon {
+  color: #a7bab0;
+  background: radial-gradient(#9cbbaa12, transparent 70%);
+}
+.reaction-failure-note {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #c8ab83;
+  margin: 12px 0;
+}
+.reaction-rare.reaction-revealed {
+  border-color: #dfbf78aa;
+  background: radial-gradient(ellipse at 50% 25%, #bfa36122, transparent 65%), #15201d;
+}
+.reaction-rare .reaction-result-icon {
+  color: #efd6a1;
+  filter: drop-shadow(0 0 20px #dabb6c44);
+}
+.reaction-rare .reaction-result-icon > span {
+  border-color: #dbba7799;
+}
+@keyframes furnace-shake {
+  0%,
+  100% {
+    transform: translateX(-1px) rotate(-1.4deg);
+  }
+  50% {
+    transform: translateX(1.5px) rotate(1.7deg);
+  }
+}
+@keyframes forge-heat {
+  to {
+    transform: scale(1.1);
+    opacity: 0.65;
+  }
+}
+@keyframes orbit-charge {
+  50% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+}
+@keyframes flame-lick {
+  from {
+    transform: scale(0.85, 0.75);
+  }
+  to {
+    transform: scale(1.1, 1.2);
+  }
+}
+@keyframes flame-roar {
+  from {
+    transform: scale(0.9, 1);
+  }
+  to {
+    transform: scale(1.15, 1.65);
+  }
+}
+@keyframes steam-rise {
+  0% {
+    opacity: 0;
+    transform: translate(0, 5px) scale(0.7);
+  }
+  30% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(7px, -22px) scale(1.2);
+  }
+}
+@keyframes ember-rise {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift), var(--rise)) scale(0.3);
+  }
+}
+@keyframes forge-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes material-feed {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes result-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes reveal-ring {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (max-height: 700px) {
+  .reaction-modal {
+    padding: 16px 19px;
+  }
+  .reaction-modal .modal-header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+  .reaction-modal .reaction-furnace .furnace {
+    width: 220px;
+    height: 220px;
+  }
+  .reaction-modal .reaction-furnace .forge-art {
+    width: 186px;
+    height: 186px;
+  }
+  .reaction-result-icon {
+    width: 96px;
+    height: 96px;
+    margin: 13px auto;
+  }
+  .reaction-result-icon > svg {
+    width: 50px;
+    height: 50px;
+  }
+  .reaction-outcome > h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .reaction-description {
+    margin: 8px 0;
+    font-size: 10px;
+  }
+  .reaction-reward {
+    margin: 10px 0;
+  }
+  .reaction-deltas {
+    margin-top: 11px;
+    padding: 10px 0;
+  }
+  .reaction-destination {
+    margin: 9px 0 13px;
+    font-size: 10px;
+  }
+}
+@media (max-width: 360px) {
+  .reaction-token b,
+  .reaction-equation {
+    font-size: 11px;
+  }
+  .reaction-equation {
+    gap: 5px;
+  }
+  .reaction-kicker {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+}

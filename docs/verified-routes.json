@@ -1,0 +1,4504 @@
+{
+  "note": "Automated route search, not human playtesting. Each action uses real hand, resource, RNG and instance rules.",
+  "results": [
+    {
+      "seed": 20261106,
+      "actions": [
+        "steam",
+        "silt",
+        "lava",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "score": 261,
+      "discovered": [
+        "steam",
+        "silt",
+        "lava",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "blaze",
+            "W"
+          ],
+          "messages": [
+            "烈焰 → 水，化为沸泉 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "boiling",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "boiling",
+            "E"
+          ],
+          "messages": [
+            "沸泉 → 土，化为海洋 · 首见 +35",
+            "生态回补养分 +1",
+            "失衡反噬：山脉消散"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "ocean",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：风暴消散"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "actions": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 4
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +3",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "actions": [
+        "steam",
+        "lava",
+        "silt",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "score": 261,
+      "discovered": [
+        "steam",
+        "lava",
+        "silt",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "blaze",
+            "W"
+          ],
+          "messages": [
+            "烈焰 → 水，化为沸泉 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "boiling",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "boiling",
+            "E"
+          ],
+          "messages": [
+            "沸泉 → 土，化为海洋 · 首见 +35",
+            "生态回补养分 +1",
+            "失衡反噬：山脉消散"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "ocean",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "actions": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 4
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +3",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 256,
+      "actions": [
+        "steam",
+        "silt",
+        "lava",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "score": 261,
+      "discovered": [
+        "steam",
+        "silt",
+        "lava",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "blaze",
+            "W"
+          ],
+          "messages": [
+            "烈焰 → 水，化为沸泉 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "boiling",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "boiling",
+            "E"
+          ],
+          "messages": [
+            "沸泉 → 土，化为海洋 · 首见 +35",
+            "生态回补养分 +1",
+            "失衡反噬：山脉消散"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "ocean",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：风暴消散"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 512,
+      "actions": [
+        "steam",
+        "silt",
+        "lava",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "score": 261,
+      "discovered": [
+        "steam",
+        "silt",
+        "lava",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "blaze",
+        "thundercloud",
+        "boiling",
+        "ocean",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "blaze",
+            "W"
+          ],
+          "messages": [
+            "烈焰 → 水，化为沸泉 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "boiling",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "boiling",
+            "E"
+          ],
+          "messages": [
+            "沸泉 → 土，化为海洋 · 首见 +35",
+            "生态回补养分 +1",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "ocean",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：海洋消散"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 1024,
+      "actions": [
+        "steam",
+        "lava",
+        "silt",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "mud",
+        "swamp",
+        "life",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "steam",
+        "lava",
+        "silt",
+        "soil",
+        "forest",
+        "ash",
+        "mountain",
+        "mud",
+        "swamp",
+        "life",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 3,
+            "nutrients": 7
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：风暴消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 4096,
+      "actions": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 4
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +3",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 8192,
+      "actions": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 4
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +3",
+            "失衡反噬：生灵消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 65535,
+      "actions": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "mud",
+        "lava",
+        "swamp",
+        "life",
+        "steam",
+        "ash",
+        "mountain",
+        "silt",
+        "soil",
+        "forest",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 4
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 4,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +3",
+            "失衡反噬：山脉消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 20261106,
+      "target": "rain",
+      "actions": [
+        "steam",
+        "cloud",
+        "rain",
+        "blaze",
+        "mud",
+        "swamp",
+        "silt",
+        "life",
+        "soil",
+        "forest",
+        "spring",
+        "sulfur"
+      ],
+      "score": 246,
+      "discovered": [
+        "steam",
+        "cloud",
+        "rain",
+        "blaze",
+        "mud",
+        "swamp",
+        "silt",
+        "life",
+        "soil",
+        "forest",
+        "spring",
+        "sulfur"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "E"
+          ],
+          "messages": [
+            "蒸汽 → 土，化为云 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 4,
+            "nutrients": 5
+          },
+          "output": "cloud",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "cloud",
+            "W"
+          ],
+          "messages": [
+            "云 → 水，化为雨 · 首见 +25",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "rain",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 7
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 1,
+            "nutrients": 8
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 1,
+            "nutrients": 8
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 1,
+            "nutrients": 8
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 1,
+            "nutrients": 8
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F",
+            "E"
+          ],
+          "messages": [
+            "水 → 火 → 土，化为温泉 · 首见 +15",
+            "生态回补养分 +3",
+            "失衡反噬：生灵消散"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "spring",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "spring",
+            "F"
+          ],
+          "messages": [
+            "温泉 → 火，化为硫磺 · 首见 +18",
+            "生态回补养分 +1",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "sulfur",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 20261106,
+      "target": "storm",
+      "actions": [
+        "steam",
+        "thundercloud",
+        "storm",
+        "blaze",
+        "mud",
+        "swamp",
+        "silt",
+        "life",
+        "soil",
+        "forest",
+        "boiling",
+        "ocean"
+      ],
+      "score": 256,
+      "discovered": [
+        "steam",
+        "thundercloud",
+        "storm",
+        "blaze",
+        "mud",
+        "swamp",
+        "silt",
+        "life",
+        "soil",
+        "forest",
+        "boiling",
+        "ocean"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 6,
+            "nutrients": 5
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 4,
+            "nutrients": 5
+          },
+          "output": "storm",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 7
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "blaze",
+            "W"
+          ],
+          "messages": [
+            "烈焰 → 水，化为沸泉 · 首见 +15",
+            "生态回补养分 +3",
+            "失衡反噬：生灵消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 2,
+            "nutrients": 10
+          },
+          "output": "boiling",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "boiling",
+            "E"
+          ],
+          "messages": [
+            "沸泉 → 土，化为海洋 · 首见 +35",
+            "生态回补养分 +1",
+            "失衡反噬：海洋消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "ocean",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 20261106,
+      "target": "earthfire",
+      "actions": [
+        "lava",
+        "obsidian",
+        "earthfire",
+        "blaze",
+        "silt",
+        "soil",
+        "mud",
+        "swamp",
+        "life",
+        "forest",
+        "scorch",
+        "rest"
+      ],
+      "score": 243,
+      "discovered": [
+        "lava",
+        "obsidian",
+        "earthfire",
+        "blaze",
+        "silt",
+        "soil",
+        "mud",
+        "swamp",
+        "life",
+        "forest",
+        "scorch"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 6,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "W"
+          ],
+          "messages": [
+            "熔岩 → 水，化为黑曜石 · 首见 +18",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 4,
+            "nutrients": 5
+          },
+          "output": "obsidian",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "obsidian",
+            "F"
+          ],
+          "messages": [
+            "黑曜石 → 火，化为地火 · 首见 +30",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 4,
+            "nutrients": 5
+          },
+          "output": "earthfire",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 2,
+            "nutrients": 7
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 2,
+            "nutrients": 8
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "火 → 土 → 土，化为焦土 · 首见 +12",
+            "生态回补养分 +3",
+            "失衡反噬：生灵消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 0,
+            "nutrients": 9
+          },
+          "output": "scorch",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "rest",
+          "inputs": [],
+          "messages": [
+            "调息：养分 +2，炉温与湿度向中值恢复"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 1,
+            "nutrients": 10
+          }
+        }
+      ]
+    },
+    {
+      "seed": 20261106,
+      "target": "forest",
+      "actions": [
+        "lava",
+        "silt",
+        "mud",
+        "soil",
+        "forest",
+        "swamp",
+        "life",
+        "ash",
+        "mountain",
+        "steam",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "lava",
+        "silt",
+        "mud",
+        "soil",
+        "forest",
+        "swamp",
+        "life",
+        "ash",
+        "mountain",
+        "steam",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 6,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 4
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 1,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：山脉消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 20261106,
+      "target": "life",
+      "actions": [
+        "mud",
+        "silt",
+        "lava",
+        "swamp",
+        "life",
+        "soil",
+        "ash",
+        "mountain",
+        "forest",
+        "steam",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "mud",
+        "silt",
+        "lava",
+        "swamp",
+        "life",
+        "soil",
+        "ash",
+        "mountain",
+        "forest",
+        "steam",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 5,
+            "nutrients": 4
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 4,
+            "nutrients": 3
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 1,
+            "nutrients": 7
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：森林消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 20261106,
+      "target": "ocean",
+      "actions": [
+        "blaze",
+        "boiling",
+        "spring",
+        "ocean",
+        "steam",
+        "mud",
+        "swamp",
+        "life",
+        "thundercloud",
+        "lava",
+        "ash",
+        "mountain"
+      ],
+      "score": 251,
+      "discovered": [
+        "blaze",
+        "boiling",
+        "spring",
+        "ocean",
+        "steam",
+        "mud",
+        "swamp",
+        "life",
+        "thundercloud",
+        "lava",
+        "ash",
+        "mountain"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "F"
+          ],
+          "messages": [
+            "火 → 火，化为烈焰 · 首见 +8",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 7,
+            "moisture": 4,
+            "nutrients": 5
+          },
+          "output": "blaze",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "blaze",
+            "W"
+          ],
+          "messages": [
+            "烈焰 → 水，化为沸泉 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 4,
+            "nutrients": 5
+          },
+          "output": "boiling",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F",
+            "E"
+          ],
+          "messages": [
+            "水 → 火 → 土，化为温泉 · 首见 +15",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 3,
+            "nutrients": 6
+          },
+          "output": "spring",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "boiling",
+            "E"
+          ],
+          "messages": [
+            "沸泉 → 土，化为海洋 · 首见 +35",
+            "生态回补养分 +2",
+            "失衡反噬：温泉消散"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 0,
+            "nutrients": 7
+          },
+          "output": "ocean",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 1,
+            "nutrients": 8
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 1,
+            "nutrients": 9
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +1",
+            "失衡反噬：雷云消散"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +2",
+            "失衡反噬：生灵消散"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 0,
+            "nutrients": 10
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 1,
+            "nutrients": 8
+          },
+          "output": "mountain",
+          "fresh": true
+        }
+      ]
+    },
+    {
+      "seed": 20261106,
+      "target": "mountain",
+      "actions": [
+        "lava",
+        "silt",
+        "mud",
+        "ash",
+        "mountain",
+        "soil",
+        "forest",
+        "swamp",
+        "life",
+        "steam",
+        "thundercloud",
+        "storm"
+      ],
+      "score": 263,
+      "discovered": [
+        "lava",
+        "silt",
+        "mud",
+        "ash",
+        "mountain",
+        "soil",
+        "forest",
+        "swamp",
+        "life",
+        "steam",
+        "thundercloud",
+        "storm"
+      ],
+      "logs": [
+        {
+          "turn": 1,
+          "action": "forge",
+          "inputs": [
+            "F",
+            "E"
+          ],
+          "messages": [
+            "火 → 土，化为熔岩 · 首见 +10",
+            "生态回补养分 +1"
+          ],
+          "environment": {
+            "heat": 6,
+            "moisture": 3,
+            "nutrients": 5
+          },
+          "output": "lava",
+          "fresh": true
+        },
+        {
+          "turn": 2,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E",
+            "E"
+          ],
+          "messages": [
+            "水 → 土 → 土，化为淤泥 · 首见 +12",
+            "生态回补养分 +2"
+          ],
+          "environment": {
+            "heat": 5,
+            "moisture": 2,
+            "nutrients": 4
+          },
+          "output": "silt",
+          "fresh": true
+        },
+        {
+          "turn": 3,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "E"
+          ],
+          "messages": [
+            "水 → 土，化为泥 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "mud",
+          "fresh": true
+        },
+        {
+          "turn": 4,
+          "action": "forge",
+          "inputs": [
+            "lava",
+            "E"
+          ],
+          "messages": [
+            "熔岩 → 土，化为火山灰 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 1,
+            "nutrients": 6
+          },
+          "output": "ash",
+          "fresh": true
+        },
+        {
+          "turn": 5,
+          "action": "forge",
+          "inputs": [
+            "ash",
+            "W"
+          ],
+          "messages": [
+            "火山灰 → 水，化为山脉 · 首见 +30",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "mountain",
+          "fresh": true
+        },
+        {
+          "turn": 6,
+          "action": "forge",
+          "inputs": [
+            "silt",
+            "F"
+          ],
+          "messages": [
+            "淤泥 → 火，化为沃土 · 首见 +18",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 4,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "soil",
+          "fresh": true
+        },
+        {
+          "turn": 7,
+          "action": "forge",
+          "inputs": [
+            "soil",
+            "W"
+          ],
+          "messages": [
+            "沃土 → 水，化为森林 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 3,
+            "moisture": 2,
+            "nutrients": 5
+          },
+          "output": "forest",
+          "fresh": true
+        },
+        {
+          "turn": 8,
+          "action": "forge",
+          "inputs": [
+            "mud",
+            "W"
+          ],
+          "messages": [
+            "泥 → 水，化为沼泽 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "swamp",
+          "fresh": true
+        },
+        {
+          "turn": 9,
+          "action": "forge",
+          "inputs": [
+            "swamp",
+            "F"
+          ],
+          "messages": [
+            "沼泽 → 火，化为生灵 · 首见 +35",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 2,
+            "moisture": 2,
+            "nutrients": 6
+          },
+          "output": "life",
+          "fresh": true
+        },
+        {
+          "turn": 10,
+          "action": "forge",
+          "inputs": [
+            "W",
+            "F"
+          ],
+          "messages": [
+            "水 → 火，化为蒸汽 · 首见 +10",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 8
+          },
+          "output": "steam",
+          "fresh": true
+        },
+        {
+          "turn": 11,
+          "action": "forge",
+          "inputs": [
+            "steam",
+            "F"
+          ],
+          "messages": [
+            "蒸汽 → 火，化为雷云 · 首见 +15",
+            "生态回补养分 +3"
+          ],
+          "environment": {
+            "heat": 1,
+            "moisture": 3,
+            "nutrients": 10
+          },
+          "output": "thundercloud",
+          "fresh": true
+        },
+        {
+          "turn": 12,
+          "action": "forge",
+          "inputs": [
+            "thundercloud",
+            "E"
+          ],
+          "messages": [
+            "雷云 → 土，化为风暴 · 首见 +28",
+            "生态回补养分 +1",
+            "失衡反噬：生灵消散"
+          ],
+          "environment": {
+            "heat": 0,
+            "moisture": 1,
+            "nutrients": 10
+          },
+          "output": "storm",
+          "fresh": true
+        }
+      ]
+    }
+  ]
+}
