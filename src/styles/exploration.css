@@ -154,10 +154,6 @@
   padding: 0 0 max(8px, env(safe-area-inset-bottom));
   flex-shrink: 0;
 }
-.in-game:has(.rest-cooldown) .game-actions {
-  padding-bottom: 6px;
-  min-height: 72px;
-}
 .branch-clues {
   margin-top: 8px;
   border-left: 1px solid #b6a77344;

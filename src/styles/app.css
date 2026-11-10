@@ -13,6 +13,9 @@
   --water: #8bbfc6;
   --fire: #df9a77;
   --earth: #c9b17e;
+  --app-viewport-height: 100vh;
+  --app-safe-top: env(safe-area-inset-top, 0px);
+  --app-safe-bottom: env(safe-area-inset-bottom, 0px);
   color-scheme: dark;
 }
 * {
@@ -420,8 +423,8 @@ small {
   letter-spacing: 3px;
 }
 .game-screen {
-  height: calc(100dvh - 53px - env(safe-area-inset-top));
-  min-height: 590px;
+  height: auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   padding: 0 20px;
@@ -1089,7 +1092,9 @@ small {
   position: relative;
   width: 100%;
   max-width: 420px;
-  max-height: calc(100dvh - 50px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  max-height: calc(
+    var(--app-viewport-height) - 50px - var(--app-safe-top) - var(--app-safe-bottom)
+  );
   overflow: auto;
   border: 1px solid #a2966c55;
   background: radial-gradient(ellipse at 50% 0%, #34422a33, transparent 70%), #15201d;
@@ -1512,7 +1517,6 @@ small {
   }
   .game-screen {
     padding-inline: 16px;
-    min-height: 580px;
   }
   .forge-scene {
     height: 93px;
@@ -1760,10 +1764,6 @@ small {
   .in-game .topbar {
     height: 45px;
   }
-  .game-screen {
-    height: calc(100dvh - 45px - env(safe-area-inset-top));
-    min-height: 515px;
-  }
   .run-meta {
     height: 32px;
     min-height: 32px;
@@ -1821,4 +1821,98 @@ small {
   .in-game:has(.tutorial-callout) .forge-heading {
     display: none;
   }
+}
+
+/* Browser toolbars can change the visual viewport without changing media queries. */
+@supports (height: 100dvh) {
+  :root {
+    --app-viewport-height: 100dvh;
+  }
+}
+html.is-playing,
+html.is-playing body,
+html.is-playing #root {
+  height: var(--app-viewport-height);
+  min-height: 0;
+  overflow: hidden;
+}
+.app-shell.in-game {
+  display: flex;
+  flex-direction: column;
+  height: var(--app-viewport-height);
+  min-height: 0;
+  padding-top: var(--app-safe-top);
+}
+.in-game > .topbar,
+.in-game > .storage-warning {
+  flex-shrink: 0;
+}
+.in-game .game-screen {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.game-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding-bottom: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #6f7955 transparent;
+}
+.game-content > * {
+  flex-shrink: 0;
+}
+.game-content .materials-section {
+  flex: 1 0 auto;
+}
+.game-content .materials-scroll {
+  flex: none;
+  min-height: 0;
+  overflow: visible;
+}
+.game-controls {
+  flex-shrink: 0;
+  padding-bottom: max(12px, var(--app-safe-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.game-controls .game-actions {
+  min-height: 0;
+  padding: 10px 0 0;
+}
+.game-controls .rest-cooldown {
+  display: block;
+  padding: 8px 0 0;
+}
+.modal-shade {
+  bottom: auto;
+  height: var(--app-viewport-height);
+  padding-top: max(20px, var(--app-safe-top));
+  padding-bottom: max(20px, var(--app-safe-bottom));
+}
+:root[data-viewport-size='compact'] .in-game .forge-scene {
+  height: 48px;
+}
+:root[data-viewport-size='compact'] .in-game .compact.furnace {
+  transform: scale(0.4);
+}
+:root[data-viewport-size='short'] .in-game .topbar {
+  height: 45px;
+}
+:root[data-viewport-size='short'] .in-game .forge-scene {
+  height: 20px;
+}
+:root[data-viewport-size='short'] .in-game .compact.furnace {
+  transform: scale(0.2);
+}
+:root:is([data-viewport-size='compact'], [data-viewport-size='short'])
+  .in-game:has(.tutorial-callout)
+  .forge-scene {
+  display: none;
 }

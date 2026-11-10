@@ -15,6 +15,7 @@ import { isElement, RECIPES, RECIPE_MAP, tokenGlyph, tokenName } from '../game/r
 import type { Material, Profile, Run } from '../game/types';
 import { loadData, saveData } from '../storage';
 import { chime, suspendAudio } from '../platform/audio';
+import { useGameViewport } from '../platform/viewport';
 import { Furnace, Icon } from './Icons';
 import Modal from './Modal';
 import ForgeReaction from './ForgeReaction';
@@ -198,6 +199,7 @@ function App() {
   const known = new Set([...profile.discovered, ...(run?.discovered ?? [])]);
   const saved = run?.mode === 'normal' && run.status === 'playing';
   const playing = screen === 'game' && run?.status === 'playing';
+  useGameViewport(Boolean(playing));
 
   return (
     <div className={`app-shell ${playing ? 'in-game' : ''}`}>
@@ -305,257 +307,261 @@ function App() {
 
       {playing && run && (
         <main className="game-screen">
-          <div className="run-meta">
-            <span>
-              {run.mode === 'tutorial' ? '入炉修习' : '炼化之旅'}{' '}
-              <b>{String(run.turn).padStart(2, '0')}</b>
-              <small>/ {String(turnLimit(run)).padStart(2, '0')}</small>
-            </span>
-            <button onClick={() => setOverlay('atlas')}>
-              <Icon name="book" size={16} />
-              本局 {run.discovered.length}
-              <small>/{run.mode === 'tutorial' ? '3' : '8'}</small>
-            </button>
-          </div>
-          <section className="environment" aria-label="环境槽">
-            {(['heat', 'moisture', 'nutrients'] as const).map((key, i) => (
-              <div
-                className={`gauge gauge-${key} severity-${severity(key, run.environment[key])} ${danger(run.environment)[i] ? 'danger' : ''}`}
-                key={key}
-              >
-                <div>
-                  <Icon name={['fire', 'water', 'leaf'][i]} size={15} />
-                  <span>{['炉温', '湿度', '养分'][i]}</span>
-                  <strong>{run.environment[key]}</strong>
-                  <small>/10</small>
-                </div>
-                <div className="gauge-track">
-                  <i style={{ width: `${run.environment[key] * 10}%` }} />
-                </div>
-                <GaugeNote type={key} value={run.environment[key]} />
-              </div>
-            ))}
-          </section>
-          {run.mode === 'tutorial' && (
-            <section className="tutorial-callout" aria-live="polite">
-              <b>{TUTORIAL_TEXT[run.turn - 1].title}</b>
-              <p>{TUTORIAL_TEXT[run.turn - 1].text}</p>
-            </section>
-          )}
-          <section className="forge-section" aria-label="造化炉">
-            <div className="forge-scene">
-              <span className="vertical-script">万物有序</span>
-              <Furnace compact />
-              <span className="vertical-script">三象相生</span>
-            </div>
-            <div className="forge-heading">
-              <span className="fine-line" />
+          <div className="game-content">
+            <div className="run-meta">
               <span>
-                {selection.some((m) => !isElement(m.token))
-                  ? '催化 · 先产物，后元素'
-                  : '基础元素 · 顺序不限'}
+                {run.mode === 'tutorial' ? '入炉修习' : '炼化之旅'}{' '}
+                <b>{String(run.turn).padStart(2, '0')}</b>
+                <small>/ {String(turnLimit(run)).padStart(2, '0')}</small>
               </span>
-              <span className="fine-line" />
+              <button onClick={() => setOverlay('atlas')}>
+                <Icon name="book" size={16} />
+                本局 {run.discovered.length}
+                <small>/{run.mode === 'tutorial' ? '3' : '8'}</small>
+              </button>
             </div>
-            <div className="input-slots">
-              {[0, 1, 2].map((index) => (
-                <div className="slot-wrap" key={index}>
-                  {index > 0 && <span className="slot-arrow">›</span>}
-                  <button
-                    className={`input-slot ${selection[index] ? `filled tone-${isElement(selection[index].token) ? selection[index].token : 'product'}` : ''} ${focusedSlot === index ? 'focused' : ''}`}
-                    aria-label={
-                      selection[index]
-                        ? `撤回${tokenName(selection[index].token)}`
-                        : `输入槽 ${index + 1}`
-                    }
-                    onClick={() => {
-                      if (selection[index]) {
-                        setSelected(selected.filter((_, i) => i !== index));
-                        setFocusedSlot(null);
-                      }
-                    }}
-                  >
-                    <span className="slot-number">0{index + 1}</span>
-                    {selection[index] ? (
-                      <>
-                        <Icon name={tokenGlyph(selection[index].token)} size={25} />
-                        <b>{tokenName(selection[index].token)}</b>
-                        <span className="remove-hint">点按撤回</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="slot-plus">＋</span>
-                        <small>待投入</small>
-                      </>
-                    )}
-                  </button>
+            <section className="environment" aria-label="环境槽">
+              {(['heat', 'moisture', 'nutrients'] as const).map((key, i) => (
+                <div
+                  className={`gauge gauge-${key} severity-${severity(key, run.environment[key])} ${danger(run.environment)[i] ? 'danger' : ''}`}
+                  key={key}
+                >
+                  <div>
+                    <Icon name={['fire', 'water', 'leaf'][i]} size={15} />
+                    <span>{['炉温', '湿度', '养分'][i]}</span>
+                    <strong>{run.environment[key]}</strong>
+                    <small>/10</small>
+                  </div>
+                  <div className="gauge-track">
+                    <i style={{ width: `${run.environment[key] * 10}%` }} />
+                  </div>
+                  <GaugeNote type={key} value={run.environment[key]} />
                 </div>
               ))}
-            </div>
-            <div className="order-tools">
-              <span>
-                {selection.length > 1
-                  ? '调整顺序'
-                  : selection.length
-                    ? '点已投材料可撤回'
-                    : '从下方选取 2–3 份材料'}
-              </span>
-              {selection.length > 1 && (
-                <div>
-                  {selection.map((_, i) => (
-                    <button
-                      key={i}
-                      className={focusedSlot === i ? 'active' : ''}
-                      onClick={() => setFocusedSlot(i)}
-                      aria-label={`选中第${i + 1}槽调序`}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
-                  <button
-                    disabled={focusedSlot === null || focusedSlot === 0}
-                    onClick={() => moveSlot(-1)}
-                    aria-label="向左移动"
-                  >
-                    ←
-                  </button>
-                  <button
-                    disabled={focusedSlot === null || focusedSlot >= selected.length - 1}
-                    onClick={() => moveSlot(1)}
-                    aria-label="向右移动"
-                  >
-                    →
-                  </button>
-                </div>
-              )}
-            </div>
-            {p && (
-              <ResourceForecast
-                run={run}
-                preview={p}
-                tokens={selection.map((m) => m.token)}
-                fixOrder={() =>
-                  setSelected(
-                    [...selected].sort(
-                      (a, b) =>
-                        Number(isElement(getMaterials(run, [a])[0].token)) -
-                        Number(isElement(getMaterials(run, [b])[0].token)),
-                    ),
-                  )
-                }
-              />
+            </section>
+            {run.mode === 'tutorial' && (
+              <section className="tutorial-callout" aria-live="polite">
+                <b>{TUTORIAL_TEXT[run.turn - 1].title}</b>
+                <p>{TUTORIAL_TEXT[run.turn - 1].text}</p>
+              </section>
             )}
-          </section>
-          <section className="materials-section" aria-label="材料区">
-            <div className="material-tabs" role="tablist" aria-label="材料来源">
-              <button
-                role="tab"
-                aria-selected={tab === 'elements'}
-                className={tab === 'elements' ? 'active' : ''}
-                onClick={() => setTab('elements')}
-              >
-                基础元素 <small>06</small>
-              </button>
-              <button
-                role="tab"
-                aria-selected={tab === 'eco'}
-                className={tab === 'eco' ? 'active' : ''}
-                onClick={() => setTab('eco')}
-              >
-                生态产物 <small>{String(run.ecosystem.length).padStart(2, '0')}</small>
-              </button>
-            </div>
-            <div
-              className="materials-scroll"
-              role="tabpanel"
-              aria-label={tab === 'elements' ? '基础元素' : '生态产物'}
-            >
-              {tab === 'elements' ? (
-                <div className="material-grid base-materials">
-                  {(['W', 'F', 'E'] as const).map((token) => {
-                    const copies = run.hand.filter((m) => m.token === token);
-                    const available = copies.filter((m) => !selected.includes(m.id));
-                    const item = available[0] ?? copies[0] ?? { id: `empty-${token}`, token };
-                    return (
-                      <MaterialCard
-                        key={token}
-                        item={item}
-                        count={available.length}
-                        selected={!available.length}
-                        disabled={token === run.forbidden || !available.length}
-                        onChoose={choose}
-                      />
-                    );
-                  })}
-                </div>
-              ) : run.ecosystem.length ? (
-                <div className="material-grid ecosystem-grid">
-                  {[...new Set(run.ecosystem.map((m) => m.token))].map((token) => {
-                    const copies = run.ecosystem.filter((m) => m.token === token);
-                    const item = copies.find((m) => !selected.includes(m.id)) ?? copies[0];
-                    return (
-                      <MaterialCard
-                        key={token}
-                        item={item}
-                        count={copies.filter((m) => !selected.includes(m.id)).length}
-                        selected={copies.every((m) => selected.includes(m.id))}
-                        disabled={copies.every((m) => selected.includes(m.id))}
-                        onChoose={choose}
-                      />
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="empty-eco">
-                  <Icon name="leaf" size={30} />
-                  <p>炉火初燃，万物未生</p>
-                  <small>合成后的产物会在这里回补养分</small>
-                </div>
+            <section className="forge-section" aria-label="造化炉">
+              <div className="forge-scene">
+                <span className="vertical-script">万物有序</span>
+                <Furnace compact />
+                <span className="vertical-script">三象相生</span>
+              </div>
+              <div className="forge-heading">
+                <span className="fine-line" />
+                <span>
+                  {selection.some((m) => !isElement(m.token))
+                    ? '催化 · 先产物，后元素'
+                    : '基础元素 · 顺序不限'}
+                </span>
+                <span className="fine-line" />
+              </div>
+              <div className="input-slots">
+                {[0, 1, 2].map((index) => (
+                  <div className="slot-wrap" key={index}>
+                    {index > 0 && <span className="slot-arrow">›</span>}
+                    <button
+                      className={`input-slot ${selection[index] ? `filled tone-${isElement(selection[index].token) ? selection[index].token : 'product'}` : ''} ${focusedSlot === index ? 'focused' : ''}`}
+                      aria-label={
+                        selection[index]
+                          ? `撤回${tokenName(selection[index].token)}`
+                          : `输入槽 ${index + 1}`
+                      }
+                      onClick={() => {
+                        if (selection[index]) {
+                          setSelected(selected.filter((_, i) => i !== index));
+                          setFocusedSlot(null);
+                        }
+                      }}
+                    >
+                      <span className="slot-number">0{index + 1}</span>
+                      {selection[index] ? (
+                        <>
+                          <Icon name={tokenGlyph(selection[index].token)} size={25} />
+                          <b>{tokenName(selection[index].token)}</b>
+                          <span className="remove-hint">点按撤回</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="slot-plus">＋</span>
+                          <small>待投入</small>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="order-tools">
+                <span>
+                  {selection.length > 1
+                    ? '调整顺序'
+                    : selection.length
+                      ? '点已投材料可撤回'
+                      : '从下方选取 2–3 份材料'}
+                </span>
+                {selection.length > 1 && (
+                  <div>
+                    {selection.map((_, i) => (
+                      <button
+                        key={i}
+                        className={focusedSlot === i ? 'active' : ''}
+                        onClick={() => setFocusedSlot(i)}
+                        aria-label={`选中第${i + 1}槽调序`}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+                    <button
+                      disabled={focusedSlot === null || focusedSlot === 0}
+                      onClick={() => moveSlot(-1)}
+                      aria-label="向左移动"
+                    >
+                      ←
+                    </button>
+                    <button
+                      disabled={focusedSlot === null || focusedSlot >= selected.length - 1}
+                      onClick={() => moveSlot(1)}
+                      aria-label="向右移动"
+                    >
+                      →
+                    </button>
+                  </div>
+                )}
+              </div>
+              {p && (
+                <ResourceForecast
+                  run={run}
+                  preview={p}
+                  tokens={selection.map((m) => m.token)}
+                  fixOrder={() =>
+                    setSelected(
+                      [...selected].sort(
+                        (a, b) =>
+                          Number(isElement(getMaterials(run, [a])[0].token)) -
+                          Number(isElement(getMaterials(run, [b])[0].token)),
+                      ),
+                    )
+                  }
+                />
               )}
-            </div>
-          </section>
-          <button
-            className="event-summary"
-            onClick={() => setOverlay('logs')}
-            aria-label="查看炉记"
-          >
-            <span className={`event-dot ${last?.output ? 'lit' : ''}`} />
-            <span>{last ? last.messages[0] : '炉火已备，等候第一份材料。'}</span>
-            <span>炉记 ›</span>
-          </button>
-          <footer className="game-actions">
+            </section>
+            <section className="materials-section" aria-label="材料区">
+              <div className="material-tabs" role="tablist" aria-label="材料来源">
+                <button
+                  role="tab"
+                  aria-selected={tab === 'elements'}
+                  className={tab === 'elements' ? 'active' : ''}
+                  onClick={() => setTab('elements')}
+                >
+                  基础元素 <small>06</small>
+                </button>
+                <button
+                  role="tab"
+                  aria-selected={tab === 'eco'}
+                  className={tab === 'eco' ? 'active' : ''}
+                  onClick={() => setTab('eco')}
+                >
+                  生态产物 <small>{String(run.ecosystem.length).padStart(2, '0')}</small>
+                </button>
+              </div>
+              <div
+                className="materials-scroll"
+                role="tabpanel"
+                aria-label={tab === 'elements' ? '基础元素' : '生态产物'}
+              >
+                {tab === 'elements' ? (
+                  <div className="material-grid base-materials">
+                    {(['W', 'F', 'E'] as const).map((token) => {
+                      const copies = run.hand.filter((m) => m.token === token);
+                      const available = copies.filter((m) => !selected.includes(m.id));
+                      const item = available[0] ?? copies[0] ?? { id: `empty-${token}`, token };
+                      return (
+                        <MaterialCard
+                          key={token}
+                          item={item}
+                          count={available.length}
+                          selected={!available.length}
+                          disabled={token === run.forbidden || !available.length}
+                          onChoose={choose}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : run.ecosystem.length ? (
+                  <div className="material-grid ecosystem-grid">
+                    {[...new Set(run.ecosystem.map((m) => m.token))].map((token) => {
+                      const copies = run.ecosystem.filter((m) => m.token === token);
+                      const item = copies.find((m) => !selected.includes(m.id)) ?? copies[0];
+                      return (
+                        <MaterialCard
+                          key={token}
+                          item={item}
+                          count={copies.filter((m) => !selected.includes(m.id)).length}
+                          selected={copies.every((m) => selected.includes(m.id))}
+                          disabled={copies.every((m) => selected.includes(m.id))}
+                          onChoose={choose}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="empty-eco">
+                    <Icon name="leaf" size={30} />
+                    <p>炉火初燃，万物未生</p>
+                    <small>合成后的产物会在这里回补养分</small>
+                  </div>
+                )}
+              </div>
+            </section>
             <button
-              className="rest-button"
-              onClick={() => commit('rest')}
-              disabled={run.mode === 'tutorial' || settling}
+              className="event-summary"
+              onClick={() => setOverlay('logs')}
+              aria-label="查看炉记"
             >
-              <Icon name="rest" size={21} />
-              <span>
-                调息<small>{freeRestAvailable(run) ? '免费 · 不占回合' : '休整 · 耗1回合'}</small>
-              </span>
+              <span className={`event-dot ${last?.output ? 'lit' : ''}`} />
+              <span>{last ? last.messages[0] : '炉火已备，等候第一份材料。'}</span>
+              <span>炉记 ›</span>
             </button>
-            <button
-              className="primary-button forge-button"
-              onClick={() => commit('forge')}
-              disabled={!p?.valid || settling}
-            >
-              <Icon name="spark" size={22} />
-              <span>
-                合 成
-                <small>
-                  {settling ? '炉火结算中' : selected.length ? '确认当前顺序' : '先投入材料'}
-                </small>
-              </span>
-              <Icon name="arrow" size={22} />
-            </button>
-          </footer>
-          {run.mode === 'normal' && !freeRestAvailable(run) && (
-            <small className="rest-cooldown">
-              {run.freeRestReadyTurn > turnLimit(run)
-                ? '本局免费调息已用完，仍可耗一回合休整'
-                : `免费调息：第 ${run.freeRestReadyTurn} 回合恢复；现在仍可耗一回合休整`}
-            </small>
-          )}
+          </div>
+          <div className="game-controls">
+            <footer className="game-actions">
+              <button
+                className="rest-button"
+                onClick={() => commit('rest')}
+                disabled={run.mode === 'tutorial' || settling}
+              >
+                <Icon name="rest" size={21} />
+                <span>
+                  调息<small>{freeRestAvailable(run) ? '免费 · 不占回合' : '休整 · 耗1回合'}</small>
+                </span>
+              </button>
+              <button
+                className="primary-button forge-button"
+                onClick={() => commit('forge')}
+                disabled={!p?.valid || settling}
+              >
+                <Icon name="spark" size={22} />
+                <span>
+                  合 成
+                  <small>
+                    {settling ? '炉火结算中' : selected.length ? '确认当前顺序' : '先投入材料'}
+                  </small>
+                </span>
+                <Icon name="arrow" size={22} />
+              </button>
+            </footer>
+            {run.mode === 'normal' && !freeRestAvailable(run) && (
+              <small className="rest-cooldown">
+                {run.freeRestReadyTurn > turnLimit(run)
+                  ? '本局免费调息已用完，仍可耗一回合休整'
+                  : `免费调息：第 ${run.freeRestReadyTurn} 回合恢复；现在仍可耗一回合休整`}
+              </small>
+            )}
+          </div>
         </main>
       )}
 
