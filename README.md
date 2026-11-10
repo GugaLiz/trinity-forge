@@ -47,7 +47,9 @@ pnpm preview         # 访问生产构建，默认端口 4173
 3. 建议使用 HTTPS；index.html 使用短缓存或每次验证，带哈希的 assets 文件可长期缓存。更新时保留完整的同次构建资源，避免新旧页面与脚本混用。
 4. 在实际手机访问部署地址，检查资源、刷新、声音启用、前后台恢复、安全区及继续游戏。浏览器更换或域名/协议变化会使用不同的本地存储。
 
-正式托管地址尚未配置；不需要微信/抖音小游戏包或平台 SDK。
+GitHub Pages 地址：<https://gugaliz.github.io/trinity-forge/>。推送到 `main` 后，GitHub Actions 会安装锁定依赖、运行测试、构建并自动部署；也可在 Actions 页手动运行 `Deploy to GitHub Pages`。仓库 Settings → Pages 的 Source 使用 `GitHub Actions`。
+
+不需要微信/抖音小游戏包或平台 SDK。
 
 ## 工程
 
