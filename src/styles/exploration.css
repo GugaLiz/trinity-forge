@@ -1,0 +1,364 @@
+.gauge.severity-caution .gauge-track {
+  color: #d4b96f;
+}
+.gauge.severity-caution .gauge-hint {
+  color: #c3b073;
+}
+.gauge.severity-warning .gauge-track,
+.gauge.severity-critical .gauge-track {
+  color: #df936e;
+  animation: resource-warning 1.6s ease-in-out infinite;
+}
+.gauge.severity-warning .gauge-hint,
+.gauge.severity-critical .gauge-hint {
+  color: #e3a57e;
+}
+.gauge .gauge-hint {
+  font-size: 8px;
+  letter-spacing: 0;
+}
+.exploration-idle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  font-size: 10px;
+  color: #a6b994;
+  background: #b8bb8a06;
+  border: 1px solid #a59d7715;
+  border-radius: 3px;
+}
+.forecast {
+  background: #b8bb8a07;
+  border: 1px solid #a59d7725;
+  border-radius: 4px;
+  padding: 7px 9px;
+  margin-top: 0;
+}
+.forecast-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 7px;
+  font-size: 9px;
+  line-height: 1.6;
+  color: #91a084;
+}
+.forecast-heading b {
+  font-weight: 400;
+  color: #dfaa7b;
+  white-space: nowrap;
+}
+.forecast-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 5px 0 4px;
+  gap: 9px;
+}
+.forecast-values > span {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  align-items: center;
+  font:
+    16px Georgia,
+    serif;
+  color: #bfc6a5;
+}
+.forecast-values small {
+  font:
+    9px 'Microsoft YaHei',
+    sans-serif;
+  color: #8d9f80;
+}
+.forecast-values i {
+  font: 10px sans-serif;
+  color: #667e64;
+}
+.forecast-values b {
+  font-weight: 400;
+}
+.forecast-values .severity-caution b {
+  color: #d4b96f;
+}
+.forecast-values .severity-warning b,
+.forecast-values .severity-critical b {
+  color: #eb9b78;
+}
+.forecast-risk {
+  font-size: 9px;
+  line-height: 1.7;
+  color: #e5a17c;
+  background: #c9754c10;
+  padding: 3px 5px;
+  border-radius: 2px;
+}
+.exploration-clue {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  color: #9eb68e;
+  line-height: 1.7;
+  padding-top: 4px;
+  border-top: 1px solid #a59d7715;
+}
+.exploration-clue > span {
+  flex: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.exploration-clue button {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: #dac08d;
+  border: 1px solid #bfa97b55;
+  border-radius: 3px;
+  min-height: 36px;
+  padding: 0 6px;
+}
+.base-materials .material-card {
+  flex-direction: column;
+  text-align: center;
+  min-height: 83px;
+  gap: 5px;
+  padding: 8px 3px;
+}
+.base-materials .material-card > div {
+  width: 100%;
+}
+.base-materials .material-card small {
+  display: none;
+}
+.base-materials .material-card em {
+  font-size: 8px;
+  font-style: normal;
+  white-space: normal;
+  line-height: 1.6;
+  display: block;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+.ecosystem-grid .material-card small {
+  font-size: 7px;
+  white-space: normal;
+  line-height: 1.4;
+}
+.rest-cooldown {
+  font-size: 8px;
+  line-height: 1.6;
+  text-align: center;
+  color: #879c77;
+  padding: 0 0 max(8px, env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+.in-game:has(.rest-cooldown) .game-actions {
+  padding-bottom: 6px;
+  min-height: 72px;
+}
+.branch-clues {
+  margin-top: 8px;
+  border-left: 1px solid #b6a77344;
+  padding-left: 8px;
+}
+.atlas-modal .modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #15201d;
+}
+.branch-clues > div {
+  margin-top: 6px;
+}
+.branch-clues span {
+  font-size: 9px;
+  line-height: 1.8;
+  color: #b7ba93;
+}
+.branch-clues b {
+  font-weight: 400;
+}
+.branch-clues small {
+  font-size: 9px;
+  display: block;
+  color: #8a9f7d;
+  line-height: 1.7;
+}
+.branch-clues .branch-terminal {
+  color: #8a9d80;
+  font-size: 9px;
+}
+.creation-tree {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #b8bb8a04;
+  margin: 0 0 24px;
+  padding: 13px 12px;
+}
+.creation-tree summary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #d4c49b;
+  cursor: pointer;
+  min-height: 28px;
+}
+.creation-tree summary small {
+  font-size: 9px;
+  color: #819475;
+  margin-left: auto;
+  letter-spacing: 0;
+}
+.lineage-list {
+  margin-top: 16px;
+}
+.lineage-root + .lineage-root {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+.lineage-root p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  color: #829b7b;
+  flex-wrap: wrap;
+}
+.lineage-root span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #bbc4a1;
+}
+.lineage-root b {
+  font-size: 11px;
+  font-weight: 400;
+}
+.lineage-root span small {
+  font-size: 8px;
+  color: #768b6c;
+}
+.lineage-root .lineage-rare {
+  color: #e2c289;
+}
+.lineage-root ul {
+  list-style: none;
+  margin: 4px 0 0 9px;
+  padding: 0 0 0 16px;
+  border-left: 1px solid #b3a06e55;
+}
+.lineage-root li {
+  position: relative;
+  padding: 7px 0;
+}
+.lineage-root li:before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 18px;
+  width: 11px;
+  height: 1px;
+  background: #b3a06e55;
+}
+.lineage-root label {
+  font-size: 8px;
+  color: #8b9d7a;
+  display: inline-block;
+  width: 28px;
+}
+.lineage-root li span {
+  flex-wrap: wrap;
+}
+.lineage-empty {
+  font-size: 11px;
+  color: #8b9c7f;
+  margin-top: 12px;
+  line-height: 1.8;
+}
+@keyframes resource-warning {
+  50% {
+    opacity: 0.45;
+  }
+}
+@media (max-height: 850px) {
+  .in-game .forge-scene {
+    height: 105px;
+  }
+  .in-game .materials-section {
+    min-height: 130px;
+  }
+  .in-game .materials-scroll {
+    min-height: 90px;
+  }
+}
+@media (max-height: 740px) {
+  .home-screen .home-intro {
+    margin: 10px 0 15px;
+  }
+  .home-screen .home-scene .furnace {
+    width: 185px;
+    height: 185px;
+  }
+  .home-screen .home-scene .forge-art {
+    width: 160px;
+    height: 160px;
+  }
+  .in-game .forge-scene {
+    height: 48px;
+  }
+  .in-game .compact.furnace {
+    transform: scale(0.4);
+  }
+  .in-game .materials-section {
+    min-height: 123px;
+  }
+  .in-game .materials-scroll {
+    min-height: 82px;
+  }
+  .base-materials .material-card {
+    min-height: 74px;
+  }
+  .forecast {
+    padding: 5px 7px;
+  }
+  .in-game:has(.tutorial-callout) .forge-scene {
+    display: none;
+  }
+}
+@media (max-height: 600px) {
+  .in-game .forge-scene {
+    height: 20px;
+  }
+  .in-game .compact.furnace {
+    transform: scale(0.2);
+  }
+  .in-game .materials-section {
+    min-height: 115px;
+  }
+  .in-game .materials-scroll {
+    min-height: 77px;
+  }
+  .base-materials .material-card {
+    min-height: 69px;
+  }
+  .forecast-heading {
+    font-size: 7px;
+  }
+  .exploration-clue {
+    font-size: 8px;
+  }
+  .in-game .order-tools {
+    height: 40px;
+  }
+  .in-game .order-tools button {
+    min-height: 40px;
+    width: 40px;
+  }
+}

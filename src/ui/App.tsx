@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import { ELEMENTS, TUTORIAL_TEXT } from '../game/config';
-import { act, createRun, danger, getMaterials, preview, scoreRun } from '../game/engine';
+import { CONFIG, ELEMENTS, TUTORIAL_TEXT } from '../game/config';
+import {
+  act,
+  createRun,
+  danger,
+  freeRestAvailable,
+  getMaterials,
+  preview,
+  scoreRun,
+  turnLimit,
+} from '../game/engine';
+import { branches, severity } from '../game/guidance';
 import { isElement, RECIPES, RECIPE_MAP, tokenGlyph, tokenName } from '../game/recipes';
 import type { Material, Profile, Run } from '../game/types';
 import { loadData, saveData } from '../storage';
@@ -10,6 +20,8 @@ import Modal from './Modal';
 import ForgeReaction from './ForgeReaction';
 import type { Reaction } from './ForgeReaction';
 import '../styles/forge-reaction.css';
+import { BranchClues, CreationTree, GaugeNote, ResourceForecast } from './Exploration';
+import '../styles/exploration.css';
 
 const tierNames = ['两象', '催化', '万物'];
 function freshSeed() {
@@ -30,9 +42,10 @@ function App() {
   const [reaction, setReaction] = useState<Reaction | null>(null);
   const [message, setMessage] = useState('');
   const [warning, setWarning] = useState(loaded.warning);
-  const [pendingStart, setPendingStart] = useState<{ mode: Run['mode']; seed: number } | null>(
-    null,
-  );
+  const [pendingStart, setPendingStart] = useState<{
+    mode: Run['mode'];
+    seed: number;
+  } | null>(null);
   const busy = useRef(false);
   const settleTimer = useRef<number | undefined>(undefined);
   const [settling, setSettling] = useState(false);
@@ -44,6 +57,10 @@ function App() {
   useEffect(() => {
     return () => window.clearTimeout(settleTimer.current);
   }, []);
+  useEffect(() => {
+    if (loaded.migrated && !saveData(loaded.data.profile, loaded.data.run))
+      setWarning('进度无法保存，请保持页面打开完成本局。');
+  }, [loaded]);
   useEffect(() => {
     const pause = () => {
       if (document.hidden) {
@@ -94,6 +111,12 @@ function App() {
     setMessage('');
     persist(profileRef.current, next);
   }
+  function resumeRun() {
+    const savedRun = runRef.current;
+    if (!savedRun || savedRun.mode !== 'normal' || savedRun.status !== 'playing') return;
+    setScreen('game');
+    setSelected([]);
+  }
   function choose(item: Material) {
     if (reaction || selected.includes(item.id)) return;
     if (selected.length === 3) {
@@ -109,7 +132,9 @@ function App() {
     busy.current = true;
     const result = act(
       run,
-      type === 'forge' ? { type, ids: selected, turn: run.turn } : { type, turn: run.turn },
+      type === 'forge'
+        ? { type, ids: selected, turn: run.turn, revision: run.revision }
+        : { type, turn: run.turn, revision: run.revision },
     );
     if (result.error) {
       setMessage(result.error);
@@ -120,13 +145,14 @@ function App() {
     const next = result.run;
     runRef.current = next;
     setRun(next);
-    setSelected([]);
+    setSelected(next.logs.at(-1)?.advanced ? [] : selected);
     setFocusedSlot(null);
     let nextProfile = { ...profileRef.current };
     if (next.mode === 'normal') {
       nextProfile.discovered = [...new Set([...nextProfile.discovered, ...next.discovered])];
-      if (next.status !== 'playing')
+      if (next.status !== 'playing') {
         nextProfile.bestScore = Math.max(nextProfile.bestScore, scoreRun(next).total);
+      }
     } else if (next.status === 'learned') nextProfile.tutorialDone = true;
     profileRef.current = nextProfile;
     setProfile(nextProfile);
@@ -139,7 +165,7 @@ function App() {
     } else {
       if (!nextProfile.muted) chime('rest');
       setMessage(
-        `调息完成 · 养分 ${run.environment.nutrients} → ${next.environment.nutrients} · 炉温 ${next.environment.heat} · 湿度 ${next.environment.moisture}`,
+        `${next.logs.at(-1)?.advanced ? '休整一回合' : '免费调息 · 不占回合'} · 养分 ${run.environment.nutrients} → ${next.environment.nutrients} · 炉温 ${next.environment.heat} · 湿度 ${next.environment.moisture}`,
       );
       settleTimer.current = window.setTimeout(() => {
         busy.current = false;
@@ -231,20 +257,16 @@ function App() {
           </div>
           <div className="home-intro">
             <p>投入水、火与土，探寻造化的顺序。</p>
-            <p>在十二次炉火之间，炼出你的万物。</p>
+            <p>沿着线索大胆探索，炼出你的万物。</p>
           </div>
           <div className="home-buttons">
             {saved ? (
               <>
-                <button
-                  className="primary-button"
-                  onClick={() => {
-                    setScreen('game');
-                    setSelected([]);
-                  }}
-                >
+                <button className="primary-button" onClick={resumeRun}>
                   <span>续燃炉火</span>
-                  <small>第 {run.turn} / 12 回合</small>
+                  <small>
+                    第 {run.turn} / {CONFIG.turns} 回合
+                  </small>
                   <Icon name="arrow" size={22} />
                 </button>
                 <button className="text-button" onClick={() => start('normal')}>
@@ -252,11 +274,13 @@ function App() {
                 </button>
               </>
             ) : (
-              <button className="primary-button" onClick={() => start('normal')}>
-                <span>开始炼化</span>
-                <small>十二回合 · 八种发现</small>
-                <Icon name="arrow" size={22} />
-              </button>
+              <>
+                <button className="primary-button" onClick={() => start('normal')}>
+                  <span>开始炼化</span>
+                  <small>{CONFIG.turns} 回合 · 八种发现</small>
+                  <Icon name="arrow" size={22} />
+                </button>
+              </>
             )}
             <div className="home-links">
               <button onClick={() => start('tutorial')}>
@@ -283,9 +307,9 @@ function App() {
         <main className="game-screen">
           <div className="run-meta">
             <span>
-              {run.mode === 'tutorial' ? '入炉修习' : '造 化 之 旅'}{' '}
+              {run.mode === 'tutorial' ? '入炉修习' : '炼化之旅'}{' '}
               <b>{String(run.turn).padStart(2, '0')}</b>
-              <small>/ {run.mode === 'tutorial' ? '03' : '12'}</small>
+              <small>/ {String(turnLimit(run)).padStart(2, '0')}</small>
             </span>
             <button onClick={() => setOverlay('atlas')}>
               <Icon name="book" size={16} />
@@ -296,7 +320,7 @@ function App() {
           <section className="environment" aria-label="环境槽">
             {(['heat', 'moisture', 'nutrients'] as const).map((key, i) => (
               <div
-                className={`gauge gauge-${key} ${danger(run.environment)[i] ? 'danger' : ''}`}
+                className={`gauge gauge-${key} severity-${severity(key, run.environment[key])} ${danger(run.environment)[i] ? 'danger' : ''}`}
                 key={key}
               >
                 <div>
@@ -308,19 +332,7 @@ function App() {
                 <div className="gauge-track">
                   <i style={{ width: `${run.environment[key] * 10}%` }} />
                 </div>
-                <small className="gauge-hint">
-                  {key === 'heat'
-                    ? run.forbidden
-                      ? `本回合禁${tokenName(run.forbidden)}`
-                      : '水降 · 火升'
-                    : key === 'moisture'
-                      ? run.environment.moisture >= 8
-                        ? '失败风险 25%'
-                        : run.environment.moisture === 0
-                          ? '水系受限'
-                          : '水升 · 土降'
-                      : `生态回补 +${Math.min(3, run.ecosystem.length)}`}
-                </small>
+                <GaugeNote type={key} value={run.environment[key]} />
               </div>
             ))}
           </section>
@@ -338,7 +350,11 @@ function App() {
             </div>
             <div className="forge-heading">
               <span className="fine-line" />
-              <span>按 序 入 炉</span>
+              <span>
+                {selection.some((m) => !isElement(m.token))
+                  ? '催化 · 先产物，后元素'
+                  : '基础元素 · 顺序不限'}
+              </span>
               <span className="fine-line" />
             </div>
             <div className="input-slots">
@@ -413,33 +429,22 @@ function App() {
                 </div>
               )}
             </div>
-            <div
-              className={`prediction ${p?.highHumidity && selection.length > 1 ? 'risk' : ''}`}
-              aria-live="polite"
-            >
-              {selection.length < 2 ? (
-                <>
-                  <Icon name="spark" size={15} />
-                  <span>基础合成无序，产物催化有序</span>
-                </>
-              ) : !p?.valid ? (
-                <span>{p?.reason}</span>
-              ) : (
-                <>
-                  <span>
-                    {p.recipe && known.has(p.recipe.id)
-                      ? `可化为「${p.recipe.name}」`
-                      : '未知之序，待你发现'}
-                    {p.highHumidity ? ' · 失败风险 25%' : ''}
-                  </span>
-                  <small>
-                    {p.recipe && known.has(p.recipe.id)
-                      ? `成功并回补后：温 ${p.afterSuccess.heat} · 湿 ${p.afterSuccess.moisture} · 养 ${p.afterSuccess.nutrients}${danger(p.afterSuccess).some(Boolean) ? ' · 将触发失衡' : ''}`
-                      : '至少消耗 1 养分 · 配方失败保留材料'}
-                  </small>
-                </>
-              )}
-            </div>
+            {p && (
+              <ResourceForecast
+                run={run}
+                preview={p}
+                tokens={selection.map((m) => m.token)}
+                fixOrder={() =>
+                  setSelected(
+                    [...selected].sort(
+                      (a, b) =>
+                        Number(isElement(getMaterials(run, [a])[0].token)) -
+                        Number(isElement(getMaterials(run, [b])[0].token)),
+                    ),
+                  )
+                }
+              />
+            )}
           </section>
           <section className="materials-section" aria-label="材料区">
             <div className="material-tabs" role="tablist" aria-label="材料来源">
@@ -466,16 +471,22 @@ function App() {
               aria-label={tab === 'elements' ? '基础元素' : '生态产物'}
             >
               {tab === 'elements' ? (
-                <div className="material-grid">
-                  {run.hand.map((item) => (
-                    <MaterialCard
-                      key={item.id}
-                      item={item}
-                      selected={selected.includes(item.id)}
-                      disabled={item.token === run.forbidden || selected.includes(item.id)}
-                      onChoose={choose}
-                    />
-                  ))}
+                <div className="material-grid base-materials">
+                  {(['W', 'F', 'E'] as const).map((token) => {
+                    const copies = run.hand.filter((m) => m.token === token);
+                    const available = copies.filter((m) => !selected.includes(m.id));
+                    const item = available[0] ?? copies[0] ?? { id: `empty-${token}`, token };
+                    return (
+                      <MaterialCard
+                        key={token}
+                        item={item}
+                        count={available.length}
+                        selected={!available.length}
+                        disabled={token === run.forbidden || !available.length}
+                        onChoose={choose}
+                      />
+                    );
+                  })}
                 </div>
               ) : run.ecosystem.length ? (
                 <div className="material-grid ecosystem-grid">
@@ -486,7 +497,7 @@ function App() {
                       <MaterialCard
                         key={token}
                         item={item}
-                        count={copies.length}
+                        count={copies.filter((m) => !selected.includes(m.id)).length}
                         selected={copies.every((m) => selected.includes(m.id))}
                         disabled={copies.every((m) => selected.includes(m.id))}
                         onChoose={choose}
@@ -520,7 +531,7 @@ function App() {
             >
               <Icon name="rest" size={21} />
               <span>
-                调息<small>恢复资源</small>
+                调息<small>{freeRestAvailable(run) ? '免费 · 不占回合' : '休整 · 耗1回合'}</small>
               </span>
             </button>
             <button
@@ -538,6 +549,13 @@ function App() {
               <Icon name="arrow" size={22} />
             </button>
           </footer>
+          {run.mode === 'normal' && !freeRestAvailable(run) && (
+            <small className="rest-cooldown">
+              {run.freeRestReadyTurn > turnLimit(run)
+                ? '本局免费调息已用完，仍可耗一回合休整'
+                : `免费调息：第 ${run.freeRestReadyTurn} 回合恢复；现在仍可耗一回合休整`}
+            </small>
+          )}
         </main>
       )}
 
@@ -559,7 +577,7 @@ function App() {
             {run.status === 'learned'
               ? '从水火相遇，到第一场雨。接下来，去发现属于你的万物。'
               : run.status === 'won'
-                ? '十二次炉火，炼出一方生机。'
+                ? `${turnLimit(run)} 次炉火，炼出一方生机。`
                 : danger(run.environment).every(Boolean)
                   ? '三象俱失。下一炉，记得留一点余地。'
                   : '本局发现未满八种。换一种顺序，再试一次。'}
@@ -590,6 +608,7 @@ function App() {
               </span>
             ))}
           </div>
+          {run.status !== 'learned' && <CreationTree run={run} />}
           <button className="primary-button" onClick={() => start('normal')}>
             <span>{run.status === 'learned' ? '开启造化之旅' : '再启一炉'}</span>
             <Icon name="arrow" />
@@ -641,9 +660,12 @@ function App() {
                       : recipe.hint}
                   </p>
                   {known.has(recipe.id) && (
-                    <small>
-                      {recipe.description} · {recipe.score} 分
-                    </small>
+                    <>
+                      <small>
+                        {recipe.description} · {recipe.score} 分
+                      </small>
+                      <BranchClues token={recipe.id} known={known} />
+                    </>
                   )}
                 </div>
               </article>
@@ -667,12 +689,17 @@ function App() {
               基础养分及配方资源；生态每件回补 1 养分，每回合最多 3。
             </p>
             <p>
-              <b>失衡与调息</b>炉温、湿度触及 0 或 10，或养分为 0
-              时，会随机损失一个产物。三槽同时危险立即失败。调息回养分并使温湿靠近中值。
+              <b>失衡与调息</b>每 3
+              回合可免费调息一次，不推进回合；冷却中仍可花一回合休整。只有结束回合才执行生态回补与反噬。温湿触及
+              0/10、养分为 0 会失衡并触发反噬；三槽同时危险才会全盘失衡。
             </p>
             <p>
-              <b>十二回合</b>发现至少 8
-              种不同产物即通关。节点只在本局首见计分，加上稳定度与剩余养分。
+              <b>放心探索</b>失败只扣 1
+              养分，不扣回合、不消耗材料，图鉴与生态会提供真实的延伸线索。陶、雨等路径终点仍可回补养分，无需继续试配。
+            </p>
+            <p>
+              <b>十二回合</b>正式游戏固定 12 回合；结束时发现至少 8
+              种即通关。节点只在本局首见计分，加上稳定度和剩余养分，记录历史最高分。
             </p>
             <p>
               <b>随时续玩</b>每回合自动保存。刷新后点「续燃炉火」恢复；未确认的材料需重选。
@@ -734,7 +761,7 @@ function App() {
             <Icon name="arrow" size={18} />
           </button>
           <p className="settings-foot">
-            移动端竖屏 H5 · v0.1.0
+            移动端竖屏 H5 · v0.3.0
             <br />
             {run ? `本局种子 ${run.seed}` : '进度仅保存在当前浏览器'}
           </p>
@@ -748,7 +775,12 @@ function App() {
             setPendingStart(null);
           }}
         >
-          <p className="modal-lead">当前对局将被替换，历史图鉴与最佳成绩会保留。</p>
+          <p className="modal-lead">
+            {pendingStart?.mode === 'normal'
+              ? '将开启新的12回合炼化，替换当前未完成的对局。'
+              : '将进入三回合教学，替换当前对局。'}
+            历史图鉴与最佳成绩会保留。
+          </p>
           <button
             className="primary-button"
             onClick={() => {
@@ -759,7 +791,13 @@ function App() {
             确认开新局
             <Icon name="arrow" />
           </button>
-          <button className="text-button" onClick={() => setOverlay(null)}>
+          <button
+            className="text-button"
+            onClick={() => {
+              setOverlay(null);
+              setPendingStart(null);
+            }}
+          >
             保留这炉
           </button>
         </Modal>
@@ -768,9 +806,11 @@ function App() {
         <Modal title="造化炉记" onClose={() => setOverlay(null)}>
           <div className="log-list">
             {run?.logs.length ? (
-              [...run.logs].reverse().map((log) => (
-                <article key={log.turn}>
-                  <span>第 {log.turn} 回合</span>
+              [...run.logs].reverse().map((log, index) => (
+                <article key={`${log.turn}-${index}`}>
+                  <span>
+                    第 {log.turn} 回合 · {log.advanced ? '回合结算' : '不占回合'}
+                  </span>
                   {log.messages.map((text, i) => (
                     <p key={i}>{text}</p>
                   ))}
@@ -793,7 +833,15 @@ function App() {
           onReveal={() => {
             const output = reaction.after.logs.at(-1)?.output;
             if (!profileRef.current.muted)
-              chime(output ? (RECIPE_MAP[output].tier === 3 ? 'rare' : 'forge') : 'failure');
+              chime(
+                output
+                  ? RECIPE_MAP[output].tier === 3
+                    ? 'rare'
+                    : RECIPE_MAP[output].tier === 2
+                      ? 'catalyst'
+                      : 'forge'
+                  : 'failure',
+              );
           }}
         />
       )}
@@ -831,7 +879,7 @@ function MaterialCard({
       className={`material-card tone-${base ? item.token : 'product'} ${selected ? 'selected' : ''}`}
       disabled={disabled}
       onClick={() => onChoose(item)}
-      aria-label={`投入${tokenName(item.token)}${count ? `，剩余${count}份` : ''}`}
+      aria-label={`投入${tokenName(item.token)}${count !== undefined ? `，剩余${count}份` : ''}`}
     >
       <Icon name={tokenGlyph(item.token)} size={26} />
       <div>
@@ -839,10 +887,13 @@ function MaterialCard({
         <small>
           {base
             ? ELEMENTS[item.token as keyof typeof ELEMENTS].label
-            : `${tierNames[RECIPE_MAP[item.token].tier - 1]}产物`}
+            : branches(item.token).length
+              ? `${branches(item.token).length} 条催化方向`
+              : '路径终点 · 回补养分'}
         </small>
+        {base && <em>{ELEMENTS[item.token as keyof typeof ELEMENTS].hint}</em>}
       </div>
-      <span className="card-mark">{selected ? '✓' : count ? `×${count}` : '+'}</span>
+      <span className="card-mark">{selected ? '✓' : count !== undefined ? `×${count}` : '+'}</span>
     </button>
   );
 }

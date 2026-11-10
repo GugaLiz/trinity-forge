@@ -24,7 +24,12 @@ function scenario(tokens: string[], env = { heat: 5, moisture: 5, nutrients: 5 }
   return run;
 }
 function forge(run: Run, tokens: string[]) {
-  return act(run, { type: 'forge', ids: inputs(run, tokens), turn: run.turn });
+  return act(run, {
+    type: 'forge',
+    ids: inputs(run, tokens),
+    turn: run.turn,
+    revision: run.revision,
+  });
 }
 function permutations(items: string[]): string[][] {
   if (items.length === 0) return [[]];
@@ -77,7 +82,7 @@ describe('transactional turns', () => {
     const p = preview(run, ids);
     expect(p.afterSuccess).toEqual({ heat: 4, moisture: 6, nutrients: 5 });
     expect(run).toEqual(before);
-    const next = act(run, { type: 'forge', ids, turn: 1 }).run;
+    const next = act(run, { type: 'forge', ids, turn: 1, revision: run.revision }).run;
     expect(next.environment).toEqual({ heat: 4, moisture: 6, nutrients: 5 });
     expect(next.turn).toBe(2);
     expect(next.logs[0].output).toBe('steam');
@@ -91,7 +96,7 @@ describe('transactional turns', () => {
       ['missing', run.hand[0].id],
       [run.hand[0].id, run.hand[0].id],
     ]) {
-      const result = act(run, { type: 'forge', ids, turn: 1 });
+      const result = act(run, { type: 'forge', ids, turn: 1, revision: run.revision });
       expect(result.error).toBeTruthy();
       expect(result.run).toBe(run);
     }
@@ -99,14 +104,15 @@ describe('transactional turns', () => {
   it('a stale command cannot settle the next turn', () => {
     const run = createRun();
     const ids = inputs(run, ['W', 'F']);
-    const command = { type: 'forge' as const, ids, turn: 1 };
+    const command = { type: 'forge' as const, ids, turn: 1, revision: run.revision };
     const next = act(run, command).run;
     expect(act(next, command).run).toBe(next);
   });
   it('reversed catalyst consumes only base nutrient and keeps the product', () => {
     const run = scenario(['E', 'steam']);
     const next = forge(run, ['E', 'steam']).run;
-    expect(next.environment).toEqual({ heat: 5, moisture: 5, nutrients: 5 });
+    expect(next.environment).toEqual({ heat: 5, moisture: 5, nutrients: 4 });
+    expect(next.turn).toBe(1);
     expect(next.logs[0].output).toBeUndefined();
     expect(next.ecosystem).toEqual(run.ecosystem);
   });
@@ -140,7 +146,7 @@ describe('transactional turns', () => {
     const run = scenario(['F', 'F'], { heat: 10, moisture: 5, nutrients: 5 });
     run.forbidden = 'F';
     expect(forge(run, ['F', 'F']).error).toMatch(/不能投入火/);
-    const next = act(run, { type: 'rest', turn: 1 }).run;
+    const next = act(run, { type: 'rest', turn: 1, revision: run.revision }).run;
     expect(next.environment.heat).toBe(9);
     expect(next.forbidden).toBeNull();
   });
@@ -148,11 +154,15 @@ describe('transactional turns', () => {
     const run = createRun();
     run.environment = { heat: 0, moisture: 10, nutrients: 0 };
     run.ecosystem = ['steam', 'lava', 'rock', 'mud'].map((token, i) => ({ id: `p${i}`, token }));
-    const next = act(run, { type: 'rest', turn: 1 }).run;
-    expect(next.environment).toEqual({ heat: 1, moisture: 9, nutrients: 5 });
+    const next = act(run, { type: 'rest', turn: 1, revision: run.revision }).run;
+    expect(next.environment).toEqual({ heat: 1, moisture: 9, nutrients: 2 });
     expect(next.ecosystem).toHaveLength(4);
+    expect(next.turn).toBe(1);
     next.environment.nutrients = 10;
-    expect(act(next, { type: 'rest', turn: 2 }).run.environment.nutrients).toBe(10);
+    expect(
+      act(next, { type: 'rest', turn: next.turn, revision: next.revision }).run.environment
+        .nutrients,
+    ).toBe(10);
   });
   it('destroys at most one instance, preserves discovery, and supports an empty ecosystem', () => {
     const run = scenario(['F', 'F'], { heat: 9, moisture: 4, nutrients: 5 });
@@ -162,20 +172,26 @@ describe('transactional turns', () => {
     expect(next.discovered).toEqual(['blaze']);
     expect(next.forbidden).toBe('F');
     expect(next.logs[0].messages.filter((m) => m.includes('反噬'))).toHaveLength(1);
-    expect(act(next, { type: 'rest', turn: 2 }).run.status).toBe('playing');
+    expect(act(next, { type: 'rest', turn: next.turn, revision: next.revision }).run.status).toBe(
+      'playing',
+    );
   });
   it('nutrient max is safe and three simultaneous dangerous slots are recognized', () => {
     expect(danger({ heat: 5, moisture: 5, nutrients: 10 })).toEqual([false, false, false]);
     expect(danger({ heat: 0, moisture: 10, nutrients: 0 })).toEqual([true, true, true]);
-    // Post-input fallback spends the last nutrient with no ecosystem to recover it.
+    // Failed exploration at critical values does not settle a turn or trigger backlash.
     const run = scenario(['W', 'W', 'W'], { heat: 0, moisture: 10, nutrients: 1 });
-    expect(forge(run, ['W', 'W', 'W']).run.status).toBe('lost');
+    const next = forge(run, ['W', 'W', 'W']).run;
+    expect(next.status).toBe('playing');
+    expect(next.turn).toBe(1);
+    expect(danger(next.environment).every(Boolean)).toBe(true);
   });
   it('scores each discovery once and ends precisely after turn 12', () => {
     let run = createRun();
-    for (let i = 0; i < 12; i++) run = act(run, { type: 'rest', turn: run.turn }).run;
+    for (let i = 0; i < 24 && run.status === 'playing'; i++)
+      run = act(run, { type: 'rest', turn: run.turn, revision: run.revision }).run;
     expect(run.status).toBe('lost');
-    expect(run.logs).toHaveLength(12);
+    expect(run.logs.filter((log) => log.advanced)).toHaveLength(12);
     expect(run.turn).toBe(12);
     expect(scoreRun(run)).toEqual({ discovery: 0, stability: 30, nutrients: 10, total: 40 });
     const repeated = scenario(['W', 'F']);
@@ -186,7 +202,7 @@ describe('transactional turns', () => {
   });
   it('tutorial uses normal resource rules and completes exactly three recipes', () => {
     let run = createRun('tutorial', 20261106);
-    expect(act(run, { type: 'rest', turn: 1 }).error).toBeTruthy();
+    expect(act(run, { type: 'rest', turn: 1, revision: run.revision }).error).toBeTruthy();
     for (const tokens of [
       ['W', 'F'],
       ['steam', 'E'],
@@ -210,7 +226,7 @@ describe('verified full-game routes', () => {
       for (const choice of certificate.actions) {
         const result =
           choice === 'rest'
-            ? act(run, { type: 'rest', turn: run.turn })
+            ? act(run, { type: 'rest', turn: run.turn, revision: run.revision })
             : forge(run, RECIPE_MAP[choice].inputs);
         expect(result.error).toBeUndefined();
         run = result.run;
@@ -240,8 +256,8 @@ describe('storage and restoration', () => {
     const restored = loadData({ getItem: () => text });
     expect(restored.warning).toBe('');
     expect(restored.data.run).toEqual(run);
-    expect(act(restored.data.run!, { type: 'rest', turn: 2 })).toEqual(
-      act(run, { type: 'rest', turn: 2 }),
+    expect(act(restored.data.run!, { type: 'rest', turn: 2, revision: run.revision })).toEqual(
+      act(run, { type: 'rest', turn: 2, revision: run.revision }),
     );
   });
   it('drops finished and tutorial snapshots', () => {

@@ -1,7 +1,12 @@
 import { CONFIG, TUTORIAL_RECIPES } from './config';
+import { explorationHint, sequenceKey } from './guidance';
 import { isElement, matchRecipe, RECIPE_MAP, tokenName } from './recipes';
 import { nextRandom, normalizeSeed } from './random';
 import type { Element, Environment, Material, Preview, Run, TurnLog } from './types';
+
+export const turnLimit = (run: Run) => (run.mode === 'tutorial' ? 3 : CONFIG.turns);
+export const freeRestAvailable = (run: Run) =>
+  run.mode === 'normal' && run.turn >= run.freeRestReadyTurn;
 
 export const clamp = (value: number) => Math.max(0, Math.min(CONFIG.max, value));
 export function danger(env: Environment) {
@@ -24,17 +29,28 @@ export function scoreRun(run: Run) {
 function deal(run: Run): Run {
   const tokens: Element[] = ['W', 'F', 'E'];
   let rng = run.rng;
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     const [n, next] = nextRandom(rng);
     rng = next;
     tokens.push((['W', 'F', 'E'] as Element[])[Math.floor(n * 3)]);
   }
+  const [n, next] = nextRandom(rng);
+  rng = next;
+  const least = (['W', 'F', 'E'] as Element[]).filter(
+    (token) =>
+      tokens.filter((t) => t === token).length ===
+      Math.min(...(['W', 'F', 'E'] as Element[]).map((e) => tokens.filter((t) => t === e).length)),
+  );
+  tokens.push(least[Math.floor(n * least.length)]);
   return { ...run, rng, hand: tokens.map((token, i) => ({ id: `h-${run.turn}-${i}`, token })) };
 }
 export function createRun(mode: Run['mode'] = 'normal', seed = 1): Run {
   const normalized = normalizeSeed(seed);
   return deal({
-    version: 1,
+    version: 3,
+    revision: 0,
+    freeRestReadyTurn: 1,
+    failedSequences: [],
     id: `${mode}-${normalized}`,
     mode,
     seed: normalized,
@@ -81,6 +97,8 @@ export function preview(run: Run, ids: string[]): Preview {
   else if (ids.length > 3) reason = '炉中最多容纳三份材料';
   else if (materials.length !== ids.length || new Set(ids).size !== ids.length)
     reason = '材料已被使用，请重新选择';
+  else if (!recipe && run.failedSequences.includes(sequenceKey(tokens)))
+    reason = '这组材料已经试过，无需再次消耗养分。请沿线索调整。';
   else if (tokens.some((token) => isElement(token) && token === run.forbidden))
     reason = `炉温失衡，本回合不能投入${tokenName(run.forbidden!)}`;
   else if (run.environment.nutrients < CONFIG.baseCost + (recipe?.cost.nutrients ?? 0))
@@ -99,9 +117,11 @@ export function preview(run: Run, ids: string[]): Preview {
 }
 
 export type Command =
-  { type: 'forge'; ids: string[]; turn: number } | { type: 'rest'; turn: number };
+  | { type: 'forge'; ids: string[]; turn: number; revision: number }
+  | { type: 'rest'; turn: number; revision: number };
 export function act(run: Run, command: Command): { run: Run; error?: string } {
-  if (run.status !== 'playing' || run.turn !== command.turn) return { run, error: '此回合已结算' };
+  if (run.status !== 'playing' || run.turn !== command.turn || run.revision !== command.revision)
+    return { run, error: '此操作已结算，请重新选择' };
   if (command.type === 'rest' && run.mode === 'tutorial')
     return { run, error: '先完成这次修习，再尝试调息' };
   let next: Run = {
@@ -109,6 +129,8 @@ export function act(run: Run, command: Command): { run: Run; error?: string } {
     environment: { ...run.environment },
     ecosystem: [...run.ecosystem],
     discovered: [...run.discovered],
+    failedSequences: [...run.failedSequences],
+    revision: run.revision + 1,
   };
   const log: TurnLog = {
     turn: run.turn,
@@ -116,6 +138,7 @@ export function act(run: Run, command: Command): { run: Run; error?: string } {
     inputs: [],
     messages: [],
     environment: { ...run.environment },
+    advanced: true,
   };
   if (command.type === 'rest') {
     const center = (n: number) => n + Math.sign(5 - n);
@@ -124,7 +147,13 @@ export function act(run: Run, command: Command): { run: Run; error?: string } {
       moisture: center(run.environment.moisture),
       nutrients: clamp(run.environment.nutrients + CONFIG.restNutrients),
     };
-    log.messages.push('调息：养分 +2，炉温与湿度向中值恢复');
+    if (freeRestAvailable(run)) {
+      next.freeRestReadyTurn = run.turn + CONFIG.freeRestInterval;
+      log.advanced = false;
+      log.messages.push(
+        `免费调息：养分 +2，温湿回中；不占回合，第 ${next.freeRestReadyTurn} 回合再次可用`,
+      );
+    } else log.messages.push('休整调息：消耗一回合，养分 +2，炉温与湿度向中值恢复');
   } else {
     const p = preview(run, command.ids);
     if (!p.valid) return { run, error: p.reason };
@@ -137,10 +166,16 @@ export function act(run: Run, command: Command): { run: Run; error?: string } {
     }
     if (failed) {
       next.environment.nutrients -= CONFIG.baseCost;
+      log.advanced = false;
+      log.failure = p.recipe ? 'humidity' : 'unknown';
+      log.hint = p.recipe
+        ? '湿度达到 8 时有 25% 失败风险。试着先调息降湿，材料仍可继续使用。'
+        : explorationHint(log.inputs, run.discovered);
+      if (!p.recipe) next.failedSequences.push(sequenceKey(log.inputs));
       log.messages.push(
         p.recipe
-          ? '湿气扰炉，合成未成。只消耗 1 养分，材料保留。'
-          : '此序尚未成形。只消耗 1 养分，材料保留。',
+          ? '湿气扰炉。只消耗 1 养分，材料保留，不占回合。'
+          : '此序尚未成形。只消耗 1 养分，材料保留，不占回合。',
       );
     } else if (p.recipe) {
       const r = p.recipe;
@@ -159,6 +194,13 @@ export function act(run: Run, command: Command): { run: Run; error?: string } {
         `${log.inputs.map(tokenName).join(' → ')}，化为${r.name}${log.fresh ? ` · 首见 +${r.score}` : ' · 已收录'}`,
       );
     }
+  }
+  if (!log.advanced) {
+    // Exploration and free rest cannot farm ecosystem recovery or retrigger backlash.
+    next.forbidden = next.environment.heat === 10 ? 'F' : next.environment.heat === 0 ? 'W' : null;
+    log.environment = { ...next.environment };
+    next.logs = [...run.logs, log];
+    return { run: next };
   }
   const regen = Math.min(CONFIG.regenCap, next.ecosystem.length);
   const recovered = Math.min(regen, CONFIG.max - next.environment.nutrients);
@@ -181,7 +223,7 @@ export function act(run: Run, command: Command): { run: Run; error?: string } {
   next.logs = [...run.logs, log];
   if (next.status === 'playing') {
     if (run.mode === 'tutorial' && run.turn === 3) next.status = 'learned';
-    else if (run.turn === CONFIG.turns)
+    else if (run.turn === turnLimit(run))
       next.status = next.discovered.length >= CONFIG.goal ? 'won' : 'lost';
     else next = deal({ ...next, turn: run.turn + 1 });
   }

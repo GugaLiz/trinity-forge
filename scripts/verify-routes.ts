@@ -1,5 +1,12 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { act, createRun, preview, scoreRun } from '../src/game/engine';
+import {
+  act,
+  createRun,
+  freeRestAvailable,
+  preview,
+  scoreRun,
+  turnLimit,
+} from '../src/game/engine';
 import { RECIPES, RECIPE_MAP } from '../src/game/recipes';
 import type { Run } from '../src/game/types';
 
@@ -40,6 +47,7 @@ function heuristic(run: Run, target?: string): number {
 function key(run: Run) {
   return [
     run.rng,
+    run.freeRestReadyTurn,
     run.environment.heat,
     run.environment.moisture,
     run.environment.nutrients,
@@ -51,34 +59,49 @@ function key(run: Run) {
   ].join('|');
 }
 export function search(seed: number, target?: string, width = 160): Candidate | undefined {
-  let beam: Candidate[] = [{ run: createRun('normal', seed), actions: [] }];
+  const initial = createRun('normal', seed);
+  let beam: Candidate[] = [{ run: initial, actions: [] }];
   let best: Candidate | undefined;
-  for (let turn = 1; turn <= 12; turn++) {
+  for (let turn = 1; turn <= turnLimit(initial); turn++) {
     const possibilities: Candidate[] = [];
     const seen = new Set<string>();
-    for (const { run, actions } of beam) {
-      const choices = ['rest', ...RECIPES.map((r) => r.id)];
-      for (const choice of choices) {
-        const ids = choice === 'rest' ? null : recipeIds(run, choice);
-        if (choice !== 'rest' && (!ids || !preview(run, ids).valid)) continue;
-        const next = act(
-          run,
-          ids ? { type: 'forge', ids, turn: run.turn } : { type: 'rest', turn: run.turn },
-        ).run;
-        if (next === run || next.status === 'lost') continue;
-        const candidate = { run: next, actions: [...actions, choice] };
-        if (
-          next.status === 'won' &&
-          next.discovered.some((id) => RECIPE_MAP[id].tier === 3) &&
-          (!target || next.discovered.includes(target))
-        ) {
-          if (!best || scoreRun(next).total > scoreRun(best.run).total) best = candidate;
-        }
-        if (next.status !== 'playing') continue;
-        const signature = key(next);
-        if (!seen.has(signature)) {
-          seen.add(signature);
-          possibilities.push(candidate);
+    for (const candidate of beam) {
+      const preparations = [candidate];
+      if (freeRestAvailable(candidate.run))
+        preparations.push({
+          run: act(candidate.run, {
+            type: 'rest',
+            turn: candidate.run.turn,
+            revision: candidate.run.revision,
+          }).run,
+          actions: [...candidate.actions, 'rest'],
+        });
+      for (const { run, actions } of preparations) {
+        const choices = ['rest', ...RECIPES.map((r) => r.id)];
+        for (const choice of choices) {
+          const ids = choice === 'rest' ? null : recipeIds(run, choice);
+          if (choice !== 'rest' && (!ids || !preview(run, ids).valid)) continue;
+          const next = act(
+            run,
+            ids
+              ? { type: 'forge', ids, turn: run.turn, revision: run.revision }
+              : { type: 'rest', turn: run.turn, revision: run.revision },
+          ).run;
+          if (next === run || next.status === 'lost' || !next.logs.at(-1)?.advanced) continue;
+          const candidate = { run: next, actions: [...actions, choice] };
+          if (
+            next.status === 'won' &&
+            next.discovered.some((id) => RECIPE_MAP[id].tier === 3) &&
+            (!target || next.discovered.includes(target))
+          ) {
+            if (!best || scoreRun(next).total > scoreRun(best.run).total) best = candidate;
+          }
+          if (next.status !== 'playing') continue;
+          const signature = key(next);
+          if (!seen.has(signature)) {
+            seen.add(signature);
+            possibilities.push(candidate);
+          }
         }
       }
     }

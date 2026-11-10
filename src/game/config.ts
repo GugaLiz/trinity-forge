@@ -6,6 +6,7 @@ export const CONFIG = {
   baseCost: 1,
   regenCap: 3,
   restNutrients: 2,
+  freeRestInterval: 3,
   humidThreshold: 8,
   failChance: 0.25,
   initial: { heat: 5, moisture: 5, nutrients: 5 } satisfies Environment,

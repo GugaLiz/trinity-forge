@@ -120,7 +120,7 @@ export default function ForgeReaction({
                   ? '湿度过高，打断了这次炼化。'
                   : reversed
                     ? '催化要先投入产物，再加入元素。试着调换顺序。'
-                    : '这组材料尚无配方，试着更换材料或调整顺序。')}
+                    : (log.hint ?? '这组材料尚无配方，试着更换材料或调整顺序。'))}
             </p>
             {recipe ? (
               <div className="reaction-reward">
@@ -138,7 +138,7 @@ export default function ForgeReaction({
               <p className="reaction-failure-note">
                 仅消耗 1 基础养分 · 生态产物保留
                 <br />
-                本回合已结束，手牌照常刷新
+                本回合继续 · 手牌与生态材料都保留
               </p>
             )}
             {backlash.length > 0 && (
@@ -169,7 +169,11 @@ export default function ForgeReaction({
                 );
               })}
             </div>
-            <p className="reaction-resource-note">资源变化已包含配方消耗与生态回补</p>
+            <p className="reaction-resource-note">
+              {log.advanced
+                ? '资源变化已包含配方消耗与生态回补'
+                : '试探不执行生态回补，也不触发回合反噬'}
+            </p>
             {recipe && (
               <p className={`reaction-destination ${!survived ? 'is-lost' : ''}`}>
                 {survived

@@ -22,9 +22,15 @@ export type TurnLog = {
   fresh?: boolean;
   messages: string[];
   environment: Environment;
+  advanced: boolean;
+  failure?: 'unknown' | 'humidity';
+  hint?: string;
 };
 export type Run = {
-  version: 1;
+  version: 3;
+  revision: number;
+  freeRestReadyTurn: number;
+  failedSequences: string[];
   id: string;
   mode: 'normal' | 'tutorial';
   seed: number;
