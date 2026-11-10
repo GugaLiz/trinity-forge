@@ -14,7 +14,7 @@
   color: #e3a57e;
 }
 .gauge .gauge-hint {
-  font-size: 8px;
+  font-size: var(--text-caption);
   letter-spacing: 0;
 }
 .exploration-idle {
@@ -23,7 +23,7 @@
   align-items: center;
   gap: 6px;
   min-height: 36px;
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #a6b994;
   background: #b8bb8a06;
   border: 1px solid #a59d7715;
@@ -40,7 +40,7 @@
   display: flex;
   justify-content: space-between;
   gap: 7px;
-  font-size: 9px;
+  font-size: var(--text-caption);
   line-height: 1.6;
   color: #91a084;
 }
@@ -58,21 +58,21 @@
 .forecast-values > span {
   display: flex;
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
   font:
-    16px Georgia,
+    var(--text-action) Georgia,
     serif;
   color: #bfc6a5;
 }
 .forecast-values small {
   font:
-    9px 'Microsoft YaHei',
+    var(--text-caption) 'Microsoft YaHei',
     sans-serif;
   color: #8d9f80;
 }
 .forecast-values i {
-  font: 10px sans-serif;
+  font: var(--text-caption) sans-serif;
   color: #667e64;
 }
 .forecast-values b {
@@ -86,7 +86,7 @@
   color: #eb9b78;
 }
 .forecast-risk {
-  font-size: 9px;
+  font-size: var(--text-body);
   line-height: 1.7;
   color: #e5a17c;
   background: #c9754c10;
@@ -97,7 +97,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 10px;
+  font-size: var(--text-body);
   color: #9eb68e;
   line-height: 1.7;
   padding-top: 4px;
@@ -112,7 +112,7 @@
 }
 .exploration-clue button {
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #dac08d;
   border: 1px solid #bfa97b55;
   border-radius: 3px;
@@ -133,7 +133,7 @@
   display: none;
 }
 .base-materials .material-card em {
-  font-size: 8px;
+  font-size: var(--text-caption);
   font-style: normal;
   white-space: normal;
   line-height: 1.6;
@@ -142,12 +142,15 @@
   margin-top: 4px;
 }
 .ecosystem-grid .material-card small {
-  font-size: 7px;
+  font-size: var(--text-caption);
   white-space: normal;
   line-height: 1.4;
 }
+.material-grid.ecosystem-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .rest-cooldown {
-  font-size: 8px;
+  font-size: var(--text-caption);
   line-height: 1.6;
   text-align: center;
   color: #879c77;
@@ -169,7 +172,7 @@
   margin-top: 6px;
 }
 .branch-clues span {
-  font-size: 9px;
+  font-size: var(--text-caption);
   line-height: 1.8;
   color: #b7ba93;
 }
@@ -177,14 +180,14 @@
   font-weight: 400;
 }
 .branch-clues small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   display: block;
   color: #8a9f7d;
   line-height: 1.7;
 }
 .branch-clues .branch-terminal {
   color: #8a9d80;
-  font-size: 9px;
+  font-size: var(--text-caption);
 }
 .creation-tree {
   width: 100%;
@@ -199,14 +202,14 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 12px;
+  font-size: var(--text-body);
   letter-spacing: 1px;
   color: #d4c49b;
   cursor: pointer;
   min-height: 28px;
 }
 .creation-tree summary small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #819475;
   margin-left: auto;
   letter-spacing: 0;
@@ -223,7 +226,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #829b7b;
   flex-wrap: wrap;
 }
@@ -234,11 +237,11 @@
   color: #bbc4a1;
 }
 .lineage-root b {
-  font-size: 11px;
+  font-size: var(--text-body);
   font-weight: 400;
 }
 .lineage-root span small {
-  font-size: 8px;
+  font-size: var(--text-caption);
   color: #768b6c;
 }
 .lineage-root .lineage-rare {
@@ -264,7 +267,7 @@
   background: #b3a06e55;
 }
 .lineage-root label {
-  font-size: 8px;
+  font-size: var(--text-caption);
   color: #8b9d7a;
   display: inline-block;
   width: 28px;
@@ -273,7 +276,7 @@
   flex-wrap: wrap;
 }
 .lineage-empty {
-  font-size: 11px;
+  font-size: var(--text-body);
   color: #8b9c7f;
   margin-top: 12px;
   line-height: 1.8;
@@ -345,10 +348,7 @@
     min-height: 69px;
   }
   .forecast-heading {
-    font-size: 7px;
-  }
-  .exploration-clue {
-    font-size: 8px;
+    font-size: var(--text-caption);
   }
   .in-game .order-tools {
     height: 40px;

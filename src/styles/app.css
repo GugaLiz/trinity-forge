@@ -13,6 +13,11 @@
   --water: #8bbfc6;
   --fire: #df9a77;
   --earth: #c9b17e;
+  --text-caption: 12px;
+  --text-body: 14px;
+  --text-label: 16px;
+  --text-action: 18px;
+  --text-number: 20px;
   --app-viewport-height: 100vh;
   --app-safe-top: env(safe-area-inset-top, 0px);
   --app-safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -58,7 +63,7 @@ button {
   min-height: 44px;
 }
 small {
-  font-size: 11px;
+  font-size: var(--text-body);
 }
 #root {
   min-height: 100svh;
@@ -98,7 +103,7 @@ small {
   display: grid;
   place-items: center;
   font:
-    17px Georgia,
+    var(--text-action) Georgia,
     serif;
   color: var(--gold);
   border-radius: 2px;
@@ -106,7 +111,7 @@ small {
   transform: rotate(-4deg);
 }
 .topbar-title {
-  font-size: 10px;
+  font-size: var(--text-caption);
   letter-spacing: 3px;
   color: var(--gold);
   position: absolute;
@@ -133,7 +138,7 @@ small {
   padding-bottom: 8px;
 }
 .eyebrow {
-  font-size: 9px;
+  font-size: var(--text-caption);
   letter-spacing: 2.4px;
   color: #a69b7f;
 }
@@ -148,7 +153,7 @@ small {
   text-align: center;
 }
 .chapter-label {
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #aeb49a;
   display: flex;
   align-items: center;
@@ -180,7 +185,7 @@ small {
   display: inline-block;
   border: 1px solid #977e56;
   font:
-    11px 'SimSun',
+    var(--text-body) 'SimSun',
     serif;
   position: absolute;
   right: -12px;
@@ -192,7 +197,7 @@ small {
   overflow: hidden;
 }
 .home-subtitle {
-  font-size: 12px;
+  font-size: var(--text-body);
   letter-spacing: 4px;
   color: #a7b09c;
   margin-top: 15px;
@@ -307,14 +312,14 @@ small {
   animation-delay: -5s;
 }
 .scene-caption {
-  font-size: 9px;
+  font-size: var(--text-caption);
   letter-spacing: 4px;
   color: #788a78;
   margin-top: 10px;
 }
 .home-intro {
   text-align: center;
-  font-size: 12px;
+  font-size: var(--text-body);
   color: #a8afa0;
   line-height: 2.1;
   margin: 23px 0 25px;
@@ -338,7 +343,7 @@ small {
     inset 0 0 0 3px #29332112,
     0 5px 18px #0002;
   font-weight: 600;
-  font-size: 16px;
+  font-size: var(--text-action);
   letter-spacing: 2px;
   transition:
     filter 0.15s,
@@ -350,7 +355,7 @@ small {
 }
 .primary-button small {
   font-weight: 400;
-  font-size: 10px;
+  font-size: var(--text-caption);
   letter-spacing: 1px;
   color: #4e553f;
 }
@@ -362,7 +367,7 @@ small {
   margin: 18px -12px 0;
 }
 .home-links button {
-  font-size: 12px;
+  font-size: var(--text-body);
   display: flex;
   gap: 7px;
   align-items: center;
@@ -370,7 +375,7 @@ small {
   color: #b6b99f;
 }
 .home-links button small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #758677;
 }
 .home-links i {
@@ -380,7 +385,7 @@ small {
 }
 .text-button {
   width: 100%;
-  font-size: 12px;
+  font-size: var(--text-body);
   letter-spacing: 2px;
   color: #acb29c;
   min-height: 44px;
@@ -396,7 +401,7 @@ small {
   min-height: 66px;
   padding-bottom: env(safe-area-inset-bottom);
   color: #637565;
-  font-size: 8px;
+  font-size: var(--text-caption);
   letter-spacing: 2px;
 }
 .home-footer button {
@@ -416,7 +421,7 @@ small {
 }
 .in-game .topbar-title {
   font:
-    17px 'Songti SC',
+    var(--text-action) 'Songti SC',
     'SimSun',
     serif;
   color: #d1c4a4;
@@ -435,7 +440,7 @@ small {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: var(--text-caption);
   letter-spacing: 1px;
   color: #9caa96;
 }
@@ -461,7 +466,7 @@ small {
   align-items: center;
   gap: 6px;
   color: #b9ba9d;
-  font-size: 11px;
+  font-size: var(--text-body);
 }
 .environment {
   display: grid;
@@ -487,20 +492,21 @@ small {
 .gauge > div:first-child {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  flex-wrap: wrap;
 }
 .gauge > div span {
-  font-size: 11px;
+  font-size: var(--text-body);
 }
 .gauge strong {
   font:
-    17px Georgia,
+    var(--text-action) Georgia,
     serif;
   margin-left: auto;
   line-height: 20px;
 }
 .gauge small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #788975;
 }
 .gauge-track {
@@ -525,10 +531,11 @@ small {
   background: #c0c0a955;
 }
 .gauge .gauge-hint {
-  font-size: 8px;
+  font-size: var(--text-caption);
   display: block;
   margin-top: 5px;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.5;
   letter-spacing: 0.2px;
 }
 .gauge.danger .gauge-hint {
@@ -545,12 +552,12 @@ small {
   flex-shrink: 0;
 }
 .tutorial-callout b {
-  font-size: 11px;
+  font-size: var(--text-body);
   font-weight: 500;
   color: #dac79e;
 }
 .tutorial-callout p {
-  font-size: 10px;
+  font-size: var(--text-body);
   color: #a7b29e;
   line-height: 1.7;
   margin-top: 2px;
@@ -568,7 +575,7 @@ small {
 }
 .vertical-script {
   font:
-    10px 'Songti SC',
+    var(--text-caption) 'Songti SC',
     'SimSun',
     serif;
   writing-mode: vertical-rl;
@@ -621,7 +628,7 @@ small {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #a59f80;
   letter-spacing: 2px;
   margin-top: 0;
@@ -654,7 +661,9 @@ small {
   font-weight: 200;
 }
 .input-slot {
-  height: 88px;
+  min-height: 98px;
+  height: auto;
+  padding-bottom: 8px;
   border: 1px dashed #8c967344;
   display: flex;
   align-items: center;
@@ -672,7 +681,7 @@ small {
   left: 6px;
   top: 5px;
   font:
-    8px Georgia,
+    var(--text-caption) Georgia,
     serif;
   color: #788a70;
 }
@@ -682,7 +691,7 @@ small {
   line-height: 26px;
 }
 .input-slot small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   letter-spacing: 2px;
 }
 .input-slot.filled {
@@ -693,10 +702,10 @@ small {
 }
 .input-slot b {
   font-weight: 400;
-  font-size: 12px;
+  font-size: var(--text-label);
 }
 .remove-hint {
-  font-size: 7px;
+  font-size: var(--text-caption);
   opacity: 0.6;
 }
 .input-slot.focused {
@@ -712,7 +721,7 @@ small {
   white-space: nowrap;
 }
 .order-tools > span {
-  font-size: 8px;
+  font-size: var(--text-caption);
   color: #7e907b;
   letter-spacing: 0.4px;
 }
@@ -724,7 +733,7 @@ small {
 .order-tools button {
   min-height: 32px;
   width: 23px;
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #a3ad93;
   position: relative;
 }
@@ -744,12 +753,12 @@ small {
   border: 1px solid #a59d7715;
   border-radius: 3px;
   color: #a8b29c;
-  font-size: 10px;
+  font-size: var(--text-caption);
   flex-wrap: wrap;
   line-height: 1.3;
 }
 .prediction small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #7c8d78;
 }
 .prediction.risk {
@@ -770,7 +779,7 @@ small {
   align-items: center;
 }
 .material-tabs button {
-  font-size: 11px;
+  font-size: var(--text-body);
   letter-spacing: 1px;
   position: relative;
   color: #82927e;
@@ -794,7 +803,7 @@ small {
 }
 .material-tabs small {
   font:
-    10px Georgia,
+    var(--text-caption) Georgia,
     serif;
   color: #71836d;
   letter-spacing: 0;
@@ -833,14 +842,14 @@ small {
   min-width: 0;
 }
 .material-card b {
-  font-size: 12px;
+  font-size: var(--text-label);
   display: block;
   font-weight: 400;
   white-space: nowrap;
 }
 .material-card small {
   font:
-    7px Georgia,
+    var(--text-caption) Georgia,
     serif;
   letter-spacing: 1px;
   opacity: 0.55;
@@ -856,7 +865,7 @@ small {
   position: absolute;
   right: 5px;
   top: 4px;
-  font-size: 8px;
+  font-size: var(--text-caption);
   opacity: 0.65;
 }
 .tone-W {
@@ -877,10 +886,11 @@ small {
   gap: 5px;
 }
 .ecosystem-grid .material-card b {
-  font-size: 11px;
+  font-size: var(--text-label);
 }
 .ecosystem-grid .material-card small {
-  font: 8px inherit;
+  font-size: var(--text-caption);
+  font-family: inherit;
   letter-spacing: 0;
 }
 .empty-eco {
@@ -893,11 +903,11 @@ small {
   gap: 5px;
 }
 .empty-eco p {
-  font-size: 11px;
+  font-size: var(--text-body);
   letter-spacing: 2px;
 }
 .empty-eco small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   opacity: 0.7;
 }
 .event-summary {
@@ -910,7 +920,7 @@ small {
   padding: 3px 0;
   color: #7a8c76;
   border-top: 1px solid var(--line);
-  font-size: 9px;
+  font-size: var(--text-caption);
   margin-top: 5px;
 }
 .event-summary > span:nth-child(2) {
@@ -922,7 +932,7 @@ small {
 }
 .event-summary > span:last-child {
   flex-shrink: 0;
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #a19978;
 }
 .event-dot {
@@ -945,7 +955,8 @@ small {
   flex-shrink: 0;
 }
 .rest-button {
-  height: 58px;
+  min-height: 64px;
+  height: auto;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -956,18 +967,18 @@ small {
   flex-shrink: 0;
 }
 .rest-button span {
-  font-size: 12px;
+  font-size: var(--text-label);
   letter-spacing: 1px;
 }
 .rest-button small {
   display: block;
-  font-size: 8px;
+  font-size: var(--text-caption);
   color: #778a75;
   margin-top: 5px;
   letter-spacing: 0;
 }
 .forge-button {
-  min-height: 58px;
+  min-height: 64px;
   gap: 9px;
   padding: 9px 14px;
 }
@@ -978,8 +989,9 @@ small {
 .forge-button small {
   display: block;
   margin-top: 4px;
-  letter-spacing: 1px;
-  font-size: 8px;
+  letter-spacing: 0;
+  font-size: var(--text-caption);
+  white-space: nowrap;
 }
 .forge-button:disabled {
   opacity: 0.35;
@@ -1018,7 +1030,7 @@ small {
   color: #d9d0b3;
 }
 .result-screen > p {
-  font-size: 12px;
+  font-size: var(--text-body);
   line-height: 2;
   color: #9aa98f;
   max-width: 280px;
@@ -1031,7 +1043,7 @@ small {
   margin-bottom: 18px;
 }
 .score-block > span {
-  font-size: 10px;
+  font-size: var(--text-caption);
   letter-spacing: 3px;
   color: #909f88;
 }
@@ -1047,12 +1059,12 @@ small {
   display: flex;
   justify-content: center;
   gap: 20px;
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #a8b298;
   margin-bottom: 12px;
 }
 .score-block > small {
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #7e937b;
 }
 .result-discoveries {
@@ -1071,7 +1083,7 @@ small {
   min-width: 34px;
 }
 .result-discoveries small {
-  font-size: 9px;
+  font-size: var(--text-caption);
 }
 .result-discoveries .rare {
   color: var(--gold);
@@ -1129,18 +1141,18 @@ small {
   margin-right: -10px;
 }
 .modal-lead {
-  font-size: 12px;
+  font-size: var(--text-body);
   line-height: 1.9;
   color: #a7b298;
   margin-bottom: 20px;
 }
 .modal-lead > span {
   float: right;
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #7e9278;
 }
 .help-content {
-  font-size: 12px;
+  font-size: var(--text-body);
   line-height: 1.9;
   color: #9faf98;
   margin-bottom: 22px;
@@ -1169,7 +1181,7 @@ small {
   background: #94a27908;
   border: 1px solid var(--line);
   border-radius: 3px;
-  font-size: 12px;
+  font-size: var(--text-body);
   color: #8d9e83;
 }
 .atlas-tabs button.active {
@@ -1178,7 +1190,7 @@ small {
   background: #c8b1850c;
 }
 .atlas-tabs small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   margin-left: 6px;
   opacity: 0.55;
 }
@@ -1208,7 +1220,7 @@ small {
   min-width: 0;
 }
 .atlas-entry h3 {
-  font-size: 13px;
+  font-size: var(--text-label);
   font-weight: 400;
   color: #d4c8a7;
   display: flex;
@@ -1216,20 +1228,20 @@ small {
   gap: 8px;
 }
 .atlas-entry h3 small {
-  font-size: 8px;
+  font-size: var(--text-caption);
   color: #9dac87;
   border: 1px solid #9dac8733;
   padding: 2px 4px;
   border-radius: 2px;
 }
 .atlas-entry p {
-  font-size: 10px;
+  font-size: var(--text-body);
   line-height: 1.8;
   color: #9bab8d;
   margin-top: 5px;
 }
 .atlas-entry > div > small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   line-height: 1.8;
   color: #6f856b;
   display: block;
@@ -1240,7 +1252,7 @@ small {
 }
 .atlas-entry.locked h3 {
   color: #879b80;
-  font-size: 12px;
+  font-size: var(--text-body);
   letter-spacing: 3px;
 }
 .atlas-entry.locked p {
@@ -1248,7 +1260,7 @@ small {
 }
 .atlas-note {
   text-align: center;
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #718869;
   padding-top: 18px;
 }
@@ -1260,14 +1272,14 @@ small {
   border-bottom: 1px solid var(--line);
 }
 .setting-row b {
-  font-size: 13px;
+  font-size: var(--text-label);
   color: #c1c3a8;
   font-weight: 400;
   letter-spacing: 1px;
 }
 .setting-row small {
   display: block;
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #7c9175;
   margin-top: 7px;
 }
@@ -1302,14 +1314,14 @@ small {
   align-items: center;
   justify-content: space-between;
   min-height: 57px;
-  font-size: 12px;
+  font-size: var(--text-body);
   color: #a4b194;
   border-bottom: 1px solid var(--line);
 }
 .settings-foot {
   text-align: center;
   color: #697f64;
-  font-size: 10px;
+  font-size: var(--text-caption);
   line-height: 2;
   margin-top: 22px;
 }
@@ -1319,19 +1331,19 @@ small {
 }
 .log-list article > span {
   font:
-    11px Georgia,
+    var(--text-body) Georgia,
     'Microsoft YaHei',
     serif;
   color: #bba77a;
 }
 .log-list p {
-  font-size: 11px;
+  font-size: var(--text-body);
   color: #a5b196;
   line-height: 1.8;
   margin-top: 6px;
 }
 .log-list small {
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #6f8568;
   display: block;
   margin-top: 7px;
@@ -1344,7 +1356,7 @@ small {
   text-align: left;
 }
 .rare-kicker {
-  font-size: 10px;
+  font-size: var(--text-caption);
   letter-spacing: 3px;
   color: #b5a16d;
 }
@@ -1382,14 +1394,14 @@ small {
   margin-left: 9px;
 }
 .rare-modal > p {
-  font-size: 12px;
+  font-size: var(--text-body);
   line-height: 2;
   color: #a7b092;
   margin: 20px 0 10px;
 }
 .rare-points {
   display: block;
-  font-size: 11px;
+  font-size: var(--text-body);
   color: #c5b07b;
   margin-bottom: 26px;
   letter-spacing: 2px;
@@ -1402,7 +1414,7 @@ small {
   background: #334032f2;
   border: 1px solid #a69a6a66;
   color: #dfd5b8;
-  font-size: 12px;
+  font-size: var(--text-body);
   line-height: 1.8;
   max-width: min(340px, 90vw);
   width: max-content;
@@ -1415,7 +1427,7 @@ small {
   position: relative;
   background: #6b4a2c;
   color: #f3d5ab;
-  font-size: 10px;
+  font-size: var(--text-caption);
   line-height: 1.6;
   padding: 5px 40px 5px 12px;
   z-index: 5;
@@ -1488,7 +1500,7 @@ small {
   }
   .home-subtitle {
     margin-top: 9px;
-    font-size: 11px;
+    font-size: var(--text-body);
   }
   .furnace:not(.compact) {
     width: 225px;
@@ -1503,11 +1515,11 @@ small {
   }
   .scene-caption {
     margin-top: 3px;
-    font-size: 8px;
+    font-size: var(--text-caption);
   }
   .home-intro {
     margin: 13px 0 16px;
-    font-size: 11px;
+    font-size: var(--text-body);
   }
   .home-footer {
     min-height: 48px;
@@ -1569,7 +1581,6 @@ small {
     padding: 5px 8px;
   }
   .tutorial-callout p {
-    font-size: 9px;
     line-height: 1.5;
   }
   .in-game:has(.tutorial-callout) .forge-scene {
@@ -1579,7 +1590,7 @@ small {
     transform: scale(0.38);
   }
   .in-game:has(.tutorial-callout) .vertical-script {
-    font-size: 8px;
+    font-size: var(--text-caption);
     letter-spacing: 3px;
   }
 }
@@ -1594,7 +1605,7 @@ small {
     gap: 8px;
   }
   .home-links button {
-    font-size: 11px;
+    font-size: var(--text-body);
     gap: 5px;
   }
   .game-screen {
@@ -1624,7 +1635,7 @@ small {
     gap: 2px;
   }
   .order-tools > span {
-    font-size: 7px;
+    font-size: var(--text-caption);
     letter-spacing: 0;
   }
   .order-tools button {
@@ -1636,23 +1647,31 @@ small {
   .rest-button {
     padding-inline: 9px;
   }
+  .forge-button {
+    gap: 5px;
+    padding-inline: 9px;
+  }
+  .forge-button > svg {
+    width: 18px;
+    height: 18px;
+  }
   .home-buttons .primary-button small {
-    font-size: 8px;
+    font-size: var(--text-caption);
   }
   .modal {
     padding: 17px;
   }
   .atlas-tabs button {
-    font-size: 11px;
+    font-size: var(--text-body);
   }
   .atlas-tabs small {
-    font-size: 8px;
+    font-size: var(--text-caption);
   }
   .topbar-title {
     letter-spacing: 2px;
   }
   .home-intro {
-    font-size: 10px;
+    font-size: var(--text-caption);
   }
 }
 @media (max-height: 640px) {
@@ -1677,7 +1696,7 @@ small {
     min-height: 41px;
   }
   .home-subtitle {
-    font-size: 10px;
+    font-size: var(--text-caption);
   }
   .primary-button {
     min-height: 53px;
@@ -1696,8 +1715,8 @@ small {
   }
   .game-actions .primary-button,
   .rest-button {
-    height: 53px;
-    min-height: 53px;
+    height: auto;
+    min-height: 64px;
   }
 }
 @media (orientation: landscape) and (max-height: 600px) and (hover: none) {
@@ -1721,11 +1740,11 @@ small {
     letter-spacing: 5px;
   }
   .rotate-hint p {
-    font-size: 12px;
+    font-size: var(--text-body);
     color: #8d9e85;
   }
   .rotate-hint small {
-    font-size: 10px;
+    font-size: var(--text-caption);
     color: #647e64;
   }
 }
@@ -1748,7 +1767,7 @@ small {
   min-height: 44px;
 }
 .order-tools > span {
-  font-size: 9px;
+  font-size: var(--text-caption);
 }
 @media (max-height: 740px) {
   .forge-scene {
@@ -1778,21 +1797,17 @@ small {
     transform: scale(0.24);
   }
   .vertical-script {
-    font-size: 8px;
+    font-size: var(--text-caption);
     letter-spacing: 2px;
     writing-mode: horizontal-tb;
     white-space: nowrap;
   }
   .forge-heading {
     margin-bottom: 5px;
-    font-size: 8px;
+    font-size: var(--text-caption);
   }
   .input-slot {
-    height: 66px;
     gap: 2px;
-  }
-  .input-slot b {
-    font-size: 11px;
   }
   .remove-hint {
     display: none;
@@ -1885,6 +1900,7 @@ html.is-playing #root {
 .game-controls .game-actions {
   min-height: 0;
   padding: 10px 0 0;
+  align-items: stretch;
 }
 .game-controls .rest-cooldown {
   display: block;

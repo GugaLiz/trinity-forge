@@ -22,14 +22,14 @@
 }
 .reaction-scroll-hint {
   flex-shrink: 0;
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #a2b08e;
   text-align: center;
   margin-top: 9px;
   letter-spacing: 1px;
 }
 .reaction-kicker {
-  font-size: 10px;
+  font-size: var(--text-caption);
   letter-spacing: 2px;
   color: #bea97b;
 }
@@ -69,14 +69,14 @@
   animation-delay: 0.24s;
 }
 .reaction-token b {
-  font-size: 13px;
+  font-size: var(--text-label);
   font-weight: 400;
 }
 .reaction-token i {
   position: absolute;
   right: -13px;
   font-style: normal;
-  font-size: 11px;
+  font-size: var(--text-body);
   color: #7f8e78;
 }
 .reaction-token.tone-W {
@@ -89,7 +89,7 @@
   color: var(--earth);
 }
 .process-caption {
-  font-size: 12px;
+  font-size: var(--text-body);
   color: #b6b79d;
   margin: 20px 0 17px;
   line-height: 1.7;
@@ -110,7 +110,7 @@
 .process-steps {
   display: flex;
   justify-content: space-between;
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #9b9e7c;
   margin-top: 9px;
   letter-spacing: 2px;
@@ -267,7 +267,7 @@
   justify-content: center;
   align-items: center;
   gap: 9px;
-  font-size: 12px;
+  font-size: var(--text-body);
   color: #aab69a;
   flex-wrap: wrap;
   line-height: 1.6;
@@ -277,7 +277,7 @@
   color: #d6c091;
 }
 .reaction-description {
-  font-size: 11px;
+  font-size: var(--text-body);
   line-height: 1.9;
   color: #8da184;
   margin: 12px 0;
@@ -292,7 +292,7 @@
   background: #c6ae7010;
   border: 1px solid #c0a67533;
   border-radius: 3px;
-  font-size: 11px;
+  font-size: var(--text-body);
   margin: 14px 0;
 }
 .reaction-reward b {
@@ -317,21 +317,21 @@
   border-left: 1px solid #a19e7529;
 }
 .reaction-deltas span {
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #99a88d;
 }
 .reaction-deltas b {
   font:
-    18px Georgia,
+    var(--text-number) Georgia,
     serif;
   color: #c7c7a5;
 }
 .reaction-deltas b small {
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #758b70;
 }
 .reaction-deltas > div > small {
-  font-size: 10px;
+  font-size: var(--text-caption);
   color: #758b70;
 }
 .reaction-deltas .delta-up {
@@ -341,12 +341,12 @@
   color: #d0a17c;
 }
 .reaction-resource-note {
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: #778d70;
   margin: 8px 0 14px;
 }
 .reaction-destination {
-  font-size: 11px;
+  font-size: var(--text-body);
   line-height: 1.8;
   color: #a2b88f;
   margin: 14px 0 19px;
@@ -361,7 +361,7 @@
   padding: 10px;
   color: #e0a47c;
   text-align: left;
-  font-size: 11px;
+  font-size: var(--text-body);
   line-height: 1.8;
 }
 .reaction-destination.is-lost {
@@ -375,7 +375,7 @@
   background: radial-gradient(#9cbbaa12, transparent 70%);
 }
 .reaction-failure-note {
-  font-size: 11px;
+  font-size: var(--text-body);
   line-height: 1.9;
   color: #c8ab83;
   margin: 12px 0;
@@ -523,7 +523,7 @@
   }
   .reaction-description {
     margin: 8px 0;
-    font-size: 10px;
+    font-size: var(--text-caption);
   }
   .reaction-reward {
     margin: 10px 0;
@@ -534,19 +534,19 @@
   }
   .reaction-destination {
     margin: 9px 0 13px;
-    font-size: 10px;
+    font-size: var(--text-caption);
   }
 }
 @media (max-width: 360px) {
   .reaction-token b,
   .reaction-equation {
-    font-size: 11px;
+    font-size: var(--text-body);
   }
   .reaction-equation {
     gap: 5px;
   }
   .reaction-kicker {
-    font-size: 9px;
+    font-size: var(--text-caption);
     letter-spacing: 1px;
   }
 }
