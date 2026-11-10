@@ -283,12 +283,15 @@ for (const [width, height] of [
     }));
     expect(layout.width).toBeLessThanOrEqual(layout.viewport);
     await expect(page.getByRole('button', { name: /^合 成/ })).toBeInViewport();
-    await expect(page.getByRole('tab', { name: /基础元素/ })).toBeInViewport();
+    await expect(page.locator('.forge-scene')).toBeInViewport({ ratio: 1 });
     await page.screenshot({
       path: `test-results/portrait-${width}x${height}.png`,
       fullPage: true,
       scale: 'css',
     });
+    await page.getByRole('tab', { name: /基础元素/ }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('tab', { name: /基础元素/ })).toBeInViewport({ ratio: 1 });
+    await expect(page.getByRole('button', { name: /^合 成/ })).toBeInViewport({ ratio: 1 });
     await selectTokens(page, ['W', 'F']);
     await expect(page.getByLabel('投入预测')).toBeVisible();
     await expect(page.getByRole('button', { name: /^合 成/ })).toBeInViewport({ ratio: 1 });

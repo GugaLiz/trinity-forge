@@ -25,6 +25,27 @@ async function expectReachable(button: Locator, height: number) {
   ).toBe(true);
 }
 
+async function expectUnclippedFurnace(page: Page) {
+  const scene = page.locator('.forge-scene');
+  const frame = (await scene.boundingBox())!;
+  const furnace = (await scene.locator('.furnace').boundingBox())!;
+  expect(furnace.width).toBeGreaterThanOrEqual(140);
+  expect(furnace.height).toBeGreaterThanOrEqual(140);
+  for (const child of await scene.locator(':scope > *').all()) {
+    const bounds = (await child.boundingBox())!;
+    expect(bounds.x).toBeGreaterThanOrEqual(frame.x);
+    expect(bounds.y).toBeGreaterThanOrEqual(frame.y);
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(frame.x + frame.width);
+    expect(bounds.y + bounds.height).toBeLessThanOrEqual(frame.y + frame.height);
+  }
+  for (const script of await scene.locator('.vertical-script').all()) {
+    const bounds = (await script.boundingBox())!;
+    expect(bounds.width).toBeLessThanOrEqual(24);
+    expect(bounds.height).toBeGreaterThanOrEqual(48);
+    await expect(script).toHaveCSS('writing-mode', 'vertical-rl');
+  }
+}
+
 test('browser toolbars can shrink the visible area without hiding forge controls', async ({
   page,
 }) => {
@@ -38,6 +59,7 @@ test('browser toolbars can shrink the visible area without hiding forge controls
   });
   await page.goto('/');
   await page.getByRole('button', { name: /^开始炼化/ }).click();
+  await expectUnclippedFurnace(page);
   await page.getByRole('button', { name: /^投入水/ }).click();
   await page.getByRole('button', { name: /^投入火/ }).click();
   await page.evaluate(() => {
@@ -73,6 +95,7 @@ test('toolbar resizing preserves selection and keeps scrolling separate from con
   const forge = page.getByRole('button', { name: /^合 成/ });
   for (const height of [480, 720, 620]) {
     await setVisibleHeight(page, height);
+    await expectUnclippedFurnace(page);
     await expectReachable(forge, height);
     await expect(forge).toBeEnabled();
     await expect(page.locator('.input-slot').nth(0)).toContainText('水');
@@ -102,6 +125,7 @@ for (const width of [320, 375, 430]) {
       document.documentElement.style.setProperty('--app-safe-bottom', '34px');
     });
     await page.getByRole('button', { name: /入炉修习/ }).click();
+    await expectUnclippedFurnace(page);
     await page.getByRole('button', { name: /^投入水/ }).click();
     await page.getByRole('button', { name: /^投入火/ }).click();
     const forge = page.getByRole('button', { name: /^合 成/ });

@@ -566,8 +566,10 @@ small {
   flex-shrink: 0;
 }
 .forge-scene {
-  height: clamp(95px, 18dvh, 162px);
-  display: flex;
+  height: 160px;
+  display: grid;
+  grid-template-columns: 24px 144px 24px;
+  column-gap: clamp(12px, 5vw, 28px);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -579,19 +581,22 @@ small {
     'SimSun',
     serif;
   writing-mode: vertical-rl;
+  text-orientation: upright;
+  white-space: nowrap;
+  line-height: 1.5;
   letter-spacing: 5px;
   color: #72836b;
-  margin: 0 20px;
+  margin: 0;
+  justify-self: center;
 }
 .compact.furnace {
-  width: 168px;
-  height: 168px;
+  width: 144px;
+  height: 144px;
   flex-shrink: 0;
-  transform: scale(0.86);
 }
 .compact .forge-art {
-  width: 158px;
-  height: 158px;
+  width: 134px;
+  height: 134px;
   margin-top: 5px;
 }
 .compact .orbit-one {
@@ -1530,12 +1535,6 @@ small {
   .game-screen {
     padding-inline: 16px;
   }
-  .forge-scene {
-    height: 93px;
-  }
-  .compact.furnace {
-    transform: scale(0.62);
-  }
   .forge-heading {
     margin-bottom: 8px;
   }
@@ -1582,16 +1581,6 @@ small {
   }
   .tutorial-callout p {
     line-height: 1.5;
-  }
-  .in-game:has(.tutorial-callout) .forge-scene {
-    height: 43px;
-  }
-  .in-game:has(.tutorial-callout) .compact {
-    transform: scale(0.38);
-  }
-  .in-game:has(.tutorial-callout) .vertical-script {
-    font-size: var(--text-caption);
-    letter-spacing: 3px;
   }
 }
 @media (max-width: 360px) {
@@ -1701,12 +1690,6 @@ small {
   .primary-button {
     min-height: 53px;
   }
-  .forge-scene {
-    height: 76px;
-  }
-  .compact.furnace {
-    transform: scale(0.55);
-  }
   .event-summary {
     min-height: 29px;
   }
@@ -1769,16 +1752,6 @@ small {
 .order-tools > span {
   font-size: var(--text-caption);
 }
-@media (max-height: 740px) {
-  .forge-scene {
-    height: 80px;
-  }
-}
-@media (max-height: 640px) {
-  .forge-scene {
-    height: 63px;
-  }
-}
 @media (max-height: 600px) {
   .in-game .topbar {
     height: 45px;
@@ -1789,18 +1762,6 @@ small {
   }
   .environment {
     min-height: 55px;
-  }
-  .forge-scene {
-    height: 24px;
-  }
-  .compact.furnace {
-    transform: scale(0.24);
-  }
-  .vertical-script {
-    font-size: var(--text-caption);
-    letter-spacing: 2px;
-    writing-mode: horizontal-tb;
-    white-space: nowrap;
   }
   .forge-heading {
     margin-bottom: 5px;
@@ -1831,10 +1792,6 @@ small {
     min-height: 70px;
     padding-top: 6px;
     padding-bottom: max(8px, env(safe-area-inset-bottom));
-  }
-  .in-game:has(.tutorial-callout) .forge-scene,
-  .in-game:has(.tutorial-callout) .forge-heading {
-    display: none;
   }
 }
 
@@ -1912,23 +1869,6 @@ html.is-playing #root {
   padding-top: max(20px, var(--app-safe-top));
   padding-bottom: max(20px, var(--app-safe-bottom));
 }
-:root[data-viewport-size='compact'] .in-game .forge-scene {
-  height: 48px;
-}
-:root[data-viewport-size='compact'] .in-game .compact.furnace {
-  transform: scale(0.4);
-}
 :root[data-viewport-size='short'] .in-game .topbar {
   height: 45px;
-}
-:root[data-viewport-size='short'] .in-game .forge-scene {
-  height: 20px;
-}
-:root[data-viewport-size='short'] .in-game .compact.furnace {
-  transform: scale(0.2);
-}
-:root:is([data-viewport-size='compact'], [data-viewport-size='short'])
-  .in-game:has(.tutorial-callout)
-  .forge-scene {
-  display: none;
 }

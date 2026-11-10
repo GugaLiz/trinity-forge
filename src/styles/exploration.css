@@ -287,9 +287,6 @@
   }
 }
 @media (max-height: 850px) {
-  .in-game .forge-scene {
-    height: 105px;
-  }
   .in-game .materials-section {
     min-height: 130px;
   }
@@ -309,12 +306,6 @@
     width: 160px;
     height: 160px;
   }
-  .in-game .forge-scene {
-    height: 48px;
-  }
-  .in-game .compact.furnace {
-    transform: scale(0.4);
-  }
   .in-game .materials-section {
     min-height: 123px;
   }
@@ -327,17 +318,8 @@
   .forecast {
     padding: 5px 7px;
   }
-  .in-game:has(.tutorial-callout) .forge-scene {
-    display: none;
-  }
 }
 @media (max-height: 600px) {
-  .in-game .forge-scene {
-    height: 20px;
-  }
-  .in-game .compact.furnace {
-    transform: scale(0.2);
-  }
   .in-game .materials-section {
     min-height: 115px;
   }
