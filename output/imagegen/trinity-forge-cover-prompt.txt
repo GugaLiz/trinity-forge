@@ -1,0 +1,19 @@
+Generation tool: built-in image_gen (opaque background).
+Final delivery: trinity-forge-cover-1920x1080.png, 1920 x 1080 pixels.
+The generated composition was exported to the requested exact dimensions using high-quality bicubic resampling.
+
+Use case: ads-marketing / stylized-concept.
+Asset type: final competition submission cover art for the Chinese browser game 三生炉 · Trinity Forge.
+Primary request: Generate one beautifully finished landscape game cover, EXACTLY 1920 pixels wide by 1080 pixels high, 16:9 aspect ratio, opaque background, full bleed. This is a game key visual, not a website mockup or screenshot.
+
+Game identity: a poetic, contemplative Chinese elemental alchemy puzzle about combining water, fire and earth in a furnace to create steam, clouds, rain, forests and life. Art direction must feel like its existing understated dark jade/ink UI, antique brass fine lines, pale jade text, soft cyan water, muted vermilion fire and ochre earth.
+Scene: a sculptural ancient Chinese bronze alchemical furnace with a round ritual vessel, two handles and three feet rests amid dark ink-wash mountain silhouettes. The open vessel glows from within with a small amber flame. Graceful cyan water vapor, warm ember ribbons and golden earthen dust form a clear restrained circular orbit around the furnace, symbolizing the three elements. Within the vapor subtly suggest a cloud, a small mountain and a delicate forest silhouette as emergent creations. Exquisite etched bronze detail, weathered material, layered mist, fine drifting sparks, tactile painterly atmosphere.
+Composition: spacious premium editorial game poster. A large, very legible title block balanced with the furnace hero; keep an uncluttered background immediately behind text. Hero furnace and elemental orbit occupy the center-right, bold title occupies the left. Entire composition readable at thumbnail size. All important art and typography safely inset at least 90px from edges.
+Text (verbatim, rendered beautifully and accurately):
+Main title: "三生炉" — very large elegant Chinese brush-calligraphy in warm pale antique gold, three Chinese characters exactly.
+Below title: "TRINITY FORGE" — refined small spaced serif capitals.
+Below subtitle: "一炉三象，万物自生" — a simple legible Chinese line, smaller than English title.
+Only these three lines of typography; do not add any other words.
+Palette: ink-black teal #0b1213, deep jade #182321, antique gold #c8b185, light ivory gold #e5d0a4, water cyan #8bbfc6, warm fire #df9a77, earth ochre #c9b17e.
+Lighting/mood: intimate furnace glow contrasted against cool atmospheric mist, quietly magical, thoughtful, handcrafted independent game, rich layered chiaroscuro without crushing the shadows.
+Avoid: characters or people, combat, weapons, dragons, neon, oversaturated rainbow colors, busy mobile-game advertising style, photorealistic scenery, generic glossy 3D cauldron, sci-fi, interface widgets, buttons, borders, watermarks, additional logos.

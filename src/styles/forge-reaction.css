@@ -9,6 +9,11 @@
   text-align: left;
   flex-shrink: 0;
 }
+.reaction-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 .reaction-process,
 .reaction-outcome {
   min-height: 0;
@@ -255,7 +260,7 @@
 }
 .reaction-outcome > h3 {
   font:
-    32px 'Songti SC',
+    30px 'Songti SC',
     'SimSun',
     serif;
   letter-spacing: 6px;
@@ -497,8 +502,10 @@
     padding: 16px 19px;
   }
   .reaction-modal .modal-header {
-    margin-bottom: 12px;
     padding-bottom: 12px;
+  }
+  .reaction-modal .modal-body {
+    padding-top: 12px;
   }
   .reaction-modal .reaction-furnace .furnace {
     width: 220px;
@@ -518,7 +525,7 @@
     height: 50px;
   }
   .reaction-outcome > h3 {
-    font-size: 28px;
+    font-size: 26px;
     margin-bottom: 10px;
   }
   .reaction-description {

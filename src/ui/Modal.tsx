@@ -84,7 +84,7 @@ export default function Modal({
             </button>
           )}
         </header>
-        {children}
+        <div className="modal-body">{children}</div>
       </div>
     </div>
   );

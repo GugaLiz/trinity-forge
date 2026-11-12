@@ -1,4 +1,5 @@
 :root {
+  font-size: 14px;
   font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
   color: #dfdfcf;
   background: #0b1213;
@@ -13,11 +14,11 @@
   --water: #8bbfc6;
   --fire: #df9a77;
   --earth: #c9b17e;
-  --text-caption: 12px;
-  --text-body: 14px;
-  --text-label: 16px;
-  --text-action: 18px;
-  --text-number: 20px;
+  --text-caption: 10px;
+  --text-body: 12px;
+  --text-label: 14px;
+  --text-action: 16px;
+  --text-number: 18px;
   --app-viewport-height: 100vh;
   --app-safe-top: env(safe-area-inset-top, 0px);
   --app-safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -133,7 +134,7 @@ small {
   color: #a6ad9a;
 }
 .settings-dots {
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: 1px;
   padding-bottom: 8px;
 }
@@ -171,7 +172,7 @@ small {
 }
 .home-heading h1 {
   font-family: 'Songti SC', 'Noto Serif CJK SC', 'SimSun', serif;
-  font-size: 62px;
+  font-size: 60px;
   letter-spacing: 12px;
   font-weight: 400;
   margin-top: 15px;
@@ -451,7 +452,7 @@ small {
 }
 .run-meta b {
   font:
-    23px Georgia,
+    21px Georgia,
     serif;
   color: #dbc9a3;
   letter-spacing: 0;
@@ -662,7 +663,7 @@ small {
   left: -14px;
   top: 31px;
   color: #7a8065;
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 200;
 }
 .input-slot {
@@ -691,7 +692,7 @@ small {
   color: #788a70;
 }
 .slot-plus {
-  font-size: 25px;
+  font-size: 23px;
   font-weight: 200;
   line-height: 26px;
 }
@@ -1028,7 +1029,7 @@ small {
 }
 .result-screen h1 {
   font:
-    35px 'Songti SC',
+    33px 'Songti SC',
     'SimSun',
     serif;
   letter-spacing: 7px;
@@ -1054,7 +1055,7 @@ small {
 }
 .score-block strong {
   font:
-    52px Georgia,
+    50px Georgia,
     serif;
   display: block;
   color: #d7c69d;
@@ -1107,17 +1108,26 @@ small {
 }
 .modal {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 420px;
   max-height: calc(
     var(--app-viewport-height) - 50px - var(--app-safe-top) - var(--app-safe-bottom)
   );
-  overflow: auto;
+  overflow: hidden;
   border: 1px solid #a2966c55;
   background: radial-gradient(ellipse at 50% 0%, #34422a33, transparent 70%), #15201d;
   border-radius: 7px;
   padding: 22px;
   box-shadow: 0 20px 100px #0008;
+}
+.modal-body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 17px;
   scrollbar-width: thin;
   scrollbar-color: #667454 transparent;
 }
@@ -1126,16 +1136,16 @@ small {
 }
 .modal-header {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--line);
   padding-bottom: 17px;
-  margin-bottom: 17px;
   gap: 10px;
 }
 .modal-header h2 {
   font:
-    23px 'Songti SC',
+    21px 'Songti SC',
     'SimSun',
     serif;
   letter-spacing: 4px;
@@ -1392,7 +1402,7 @@ small {
 }
 .rare-modal > h2 {
   font:
-    36px 'SimSun',
+    34px 'SimSun',
     serif;
   letter-spacing: 9px;
   color: #e1c99a;
@@ -1500,7 +1510,7 @@ small {
     padding-top: 7px;
   }
   .home-heading h1 {
-    font-size: 52px;
+    font-size: 50px;
     margin-top: 10px;
   }
   .home-subtitle {
@@ -1588,7 +1598,7 @@ small {
     padding-inline: 24px;
   }
   .home-heading h1 {
-    font-size: 49px;
+    font-size: 47px;
   }
   .home-links {
     gap: 8px;
@@ -1668,7 +1678,7 @@ small {
     padding-top: 0;
   }
   .home-heading h1 {
-    font-size: 46px;
+    font-size: 44px;
   }
   .furnace:not(.compact) {
     width: 195px;
@@ -1718,7 +1728,7 @@ small {
   }
   .rotate-hint h2 {
     font:
-      24px 'SimSun',
+      22px 'SimSun',
       serif;
     letter-spacing: 5px;
   }
